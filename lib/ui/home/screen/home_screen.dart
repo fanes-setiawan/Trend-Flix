@@ -138,7 +138,30 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             Container(
-              color: Colors.blue[100],
+              color: MyColor.cBlack,
+              child: FutureBuilder(
+                  future: controller.getUpcomming(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            HomeWidget().sliderlist(
+                                controller.upComming,
+                                "Upcomming",
+                                "movie",
+                                controller.upComming.length),
+                            Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 10.0, top: 15, bottom: 40),
+                                child: tittletext("Many More Coming Soon... "))
+                          ]);
+                    } else {
+                      return const Center(
+                          child:
+                              CircularProgressIndicator(color: Colors.amber));
+                    }
+                  }),
             ),
           ],
         ),

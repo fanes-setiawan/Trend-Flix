@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:dio/dio.dart';
 import 'package:trendflix/api/api.dart';
 import 'package:trendflix/service/model/movieModel.dart';
@@ -13,6 +15,9 @@ class HomeController {
   List<MovieModel> nowPlayingMovies = [];
   List<MovieModel> topPratedMovies = [];
   List<MovieModel> latesMovies = [];
+
+  //upcomming
+  List<MovieModel> upComming = [];
 
   Future<void> tvSeriesFunction() async {
     try {
@@ -32,7 +37,6 @@ class HomeController {
           );
         }
       } else {
-        // ignore: avoid_print
         print(response1.statusCode);
       }
 
@@ -53,7 +57,6 @@ class HomeController {
           );
         }
       } else {
-        // ignore: avoid_print
         print(response2.statusCode);
       }
       var response3 = await Dio().get(MyApi.ApiOnAir);
@@ -72,11 +75,9 @@ class HomeController {
           );
         }
       } else {
-        // ignore: avoid_print
         print(response3.statusCode);
       }
     } catch (e) {
-      // ignore: avoid_print
       print(e);
     }
   }
@@ -99,7 +100,6 @@ class HomeController {
           );
         }
       } else {
-        // ignore: avoid_print
         print(response1.statusCode);
       }
 
@@ -120,7 +120,6 @@ class HomeController {
           );
         }
       } else {
-        // ignore: avoid_print
         print(response2.statusCode);
       }
       var response3 = await Dio().get(MyApi.ApiTopPratedMovies);
@@ -139,11 +138,10 @@ class HomeController {
           );
         }
       } else {
-        // ignore: avoid_print
         print(response3.statusCode);
       }
       var response4 = await Dio().get(MyApi.ApiLatesMovies);
-      var data4 = response3.data;
+      var data4 = response4.data;
       if (response4.statusCode == 200) {
         var results = data4['results'];
         for (var i = 0; i < results.length; i++) {
@@ -158,11 +156,34 @@ class HomeController {
           );
         }
       } else {
-        // ignore: avoid_print
         print(response3.statusCode);
       }
     } catch (e) {
-      // ignore: avoid_print
+      print(e);
+    }
+  }
+
+  Future<void> getUpcomming() async {
+    try {
+      var response = await Dio().get(MyApi.ApiUpcomming);
+      var data = response.data;
+      if (response.statusCode == 200) {
+        var results = data['results'];
+        for (var i = 0; i < results.length; i++) {
+          upComming.add(
+            MovieModel(
+              id: results[i]['id'] ?? '',
+              name: results[i]['title'] ?? '',
+              posterPath: results[i]['poster_path'] ?? '',
+              voteAverage: results[i]['vote_average'].toDouble(),
+              date: results[i]['release_date'] ?? '',
+            ),
+          );
+        }
+      } else {
+        print(response.statusCode);
+      }
+    } catch (e) {
       print(e);
     }
   }

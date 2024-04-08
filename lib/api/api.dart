@@ -20,4 +20,8 @@ class MyApi {
       "https://api.themoviedb.org/3/movie/top_rated?api_key=$ApiKey";
   static String ApiLatesMovies =
       "https://api.themoviedb.org/3/movie/latest?api_key=$ApiKey";
+
+  //api upcomming
+  static String ApiUpcomming =
+      "https://api.themoviedb.org/3/movie/upcoming?api_key=$ApiKey";
 }
