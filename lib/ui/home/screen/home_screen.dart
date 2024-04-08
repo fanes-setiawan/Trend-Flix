@@ -46,48 +46,96 @@ class _HomeScreenState extends State<HomeScreen> {
         body: TabBarView(
           children: [
             Container(
-                color: MyColor.cBlack,
-                child: FutureBuilder(
-                    future: controller.tvSeriesFunction(),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting)
-                        // ignore: curly_braces_in_flow_control_structures
-                        return Center(
-                            child: CircularProgressIndicator(
-                                color: Colors.amber.shade400));
-                      else {
-                        return SingleChildScrollView(
-                          controller: ScrollController(),
-                          child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                HomeWidget().sliderlist(
-                                  controller.populartSeries,
-                                  "Popular Now",
-                                  "tv",
-                                  controller.populartSeries.length,
-                                ),
-                                HomeWidget().sliderlist(
-                                  controller.onairtSeries,
-                                  "On Air Now",
-                                  "tv",
-                                  controller.onairtSeries.length,
-                                ),
-                                HomeWidget().sliderlist(
-                                  controller.topratedSeries,
-                                  "Top Rated",
-                                  "tv",
-                                  controller.topratedSeries.length,
-                                ),
-                                const SizedBox(
-                                  height: 50.0,
-                                ),
-                              ]),
-                        );
-                      }
-                    })),
+              color: MyColor.cBlack,
+              child: FutureBuilder(
+                future: controller.tvSeriesFunction(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting)
+                    // ignore: curly_braces_in_flow_control_structures
+                    return Center(
+                        child: CircularProgressIndicator(
+                            color: Colors.amber.shade400));
+                  else {
+                    return SingleChildScrollView(
+                      controller: ScrollController(),
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            HomeWidget().sliderlist(
+                              controller.populartSeries,
+                              "Popular Now",
+                              "tv",
+                              controller.populartSeries.length,
+                            ),
+                            HomeWidget().sliderlist(
+                              controller.onairtSeries,
+                              "On Air Now",
+                              "tv",
+                              controller.onairtSeries.length,
+                            ),
+                            HomeWidget().sliderlist(
+                              controller.topratedSeries,
+                              "Top Rated",
+                              "tv",
+                              controller.topratedSeries.length,
+                            ),
+                            const SizedBox(
+                              height: 50.0,
+                            ),
+                          ]),
+                    );
+                  }
+                },
+              ),
+            ),
             Container(
-              color: Colors.green[100],
+              color: MyColor.cBlack,
+              child: FutureBuilder(
+                future: controller.moviesFunction(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting)
+                    // ignore: curly_braces_in_flow_control_structures
+                    return Center(
+                        child: CircularProgressIndicator(
+                            color: Colors.amber.shade400));
+                  else {
+                    return SingleChildScrollView(
+                      controller: ScrollController(),
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            HomeWidget().sliderlist(
+                              controller.popularMovies,
+                              "Popular Now",
+                              "movie",
+                              controller.popularMovies.length,
+                            ),
+                            HomeWidget().sliderlist(
+                              controller.nowPlayingMovies,
+                              "On Air Now",
+                              "movie",
+                              controller.nowPlayingMovies.length,
+                            ),
+                            HomeWidget().sliderlist(
+                              controller.topPratedMovies,
+                              "Top Rated",
+                              "movie",
+                              controller.topPratedMovies.length,
+                            ),
+                            HomeWidget().sliderlist(
+                              controller.latesMovies,
+                              "Lates Movies",
+                              "movie",
+                              controller.latesMovies.length,
+                            ),
+                            const SizedBox(
+                              height: 50.0,
+                            ),
+                          ]),
+                    );
+                  }
+                },
+              ),
             ),
             Container(
               color: Colors.blue[100],
