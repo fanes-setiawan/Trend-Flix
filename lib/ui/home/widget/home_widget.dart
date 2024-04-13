@@ -38,12 +38,13 @@ class HomeWidget {
                     //               id: firstlistname[index]['id'],
                     //             )));
                   } else if (type == 'tv') {
-                    // print(firstlistname[index]['id']);
-                    // Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //         builder: (context) => TvSeriesDetails(
-                    //             id: firstlistname[index]['id'])));
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            TvDetailScreen(id: firstlistname[index].id),
+                      ),
+                    );
                   }
                 },
                 child: Container(

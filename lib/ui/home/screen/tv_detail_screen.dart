@@ -4,12 +4,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:trendflix/colors/myColors.dart';
 
 import 'package:trendflix/ui/home/controllers/tv_detail_controller.dart';
 
 import 'package:trendflix/ui/widget_global/typesMovieWidget.dart';
 
-import '../widget/home_widget.dart';
+import '../../widget_global/TrailerUI.dart';
+import '../../widget_global/detailSliderList.dart';
 
 class TvDetailScreen extends StatefulWidget {
   var id;
@@ -44,36 +46,35 @@ class _TvDetailScreenState extends State<TvDetailScreen> {
                 physics: BouncingScrollPhysics(),
                 slivers: [
                   SliverAppBar(
-                    automaticallyImplyLeading: false,
-                    leading:
-                        //circular icon button
-                        IconButton(
-                            onPressed: () {
-                              SystemChrome.setEnabledSystemUIMode(
-                                  SystemUiMode.manual,
-                                  overlays: [SystemUiOverlay.bottom]);
-                              SystemChrome.setPreferredOrientations([
-                                DeviceOrientation.portraitUp,
-                                DeviceOrientation.portraitDown,
-                              ]);
-                              Navigator.pop(context);
-                            },
-                            icon: Icon(FontAwesomeIcons.circleArrowLeft),
-                            iconSize: 28,
-                            color: Colors.white),
-                    backgroundColor: Color.fromRGBO(18, 18, 18, 0.5),
-                    expandedHeight: MediaQuery.of(context).size.height * 0.35,
-                    pinned: true,
-                    // flexibleSpace: FlexibleSpaceBar(
-                    //   collapseMode: CollapseMode.parallax,
-                    //   background: FittedBox(
-                    //     fit: BoxFit.fill,
-                    //     child: trailerwatch(
-                    //       trailerytid: _controller.seriestrailerslist[0].key,
-                    //     ),
-                    //   ),
-                    // )
-                  ),
+                      automaticallyImplyLeading: false,
+                      leading:
+                          //circular icon button
+                          IconButton(
+                              onPressed: () {
+                                SystemChrome.setEnabledSystemUIMode(
+                                    SystemUiMode.manual,
+                                    overlays: [SystemUiOverlay.bottom]);
+                                SystemChrome.setPreferredOrientations([
+                                  DeviceOrientation.portraitUp,
+                                  DeviceOrientation.portraitDown,
+                                ]);
+                                Navigator.pop(context);
+                              },
+                              icon: Icon(FontAwesomeIcons.circleArrowLeft),
+                              iconSize: 28,
+                              color: Colors.white),
+                      backgroundColor: Color.fromRGBO(18, 18, 18, 0.5),
+                      expandedHeight: MediaQuery.of(context).size.height * 0.35,
+                      pinned: true,
+                      flexibleSpace: FlexibleSpaceBar(
+                        collapseMode: CollapseMode.parallax,
+                        background: FittedBox(
+                          fit: BoxFit.fill,
+                          child: trailerwatch(
+                            trailerytid: _controller.seriestrailerslist[0].key,
+                          ),
+                        ),
+                      )),
                   SliverList(
                     delegate: SliverChildListDelegate(
                       [
@@ -114,7 +115,7 @@ class _TvDetailScreenState extends State<TvDetailScreen> {
 
                         Container(
                             padding: EdgeInsets.only(left: 10, top: 20),
-                            child: overviewtext(_controller
+                            child: readMore(_controller
                                 .TvSeriesDetails[0].overview
                                 .toString())),
                         // Padding(
@@ -154,17 +155,29 @@ class _TvDetailScreenState extends State<TvDetailScreen> {
                                                 BorderRadius.circular(10)),
                                         child: Row(children: [
                                           Column(children: [
-                                            CircleAvatar(
-                                              radius: 45,
-                                              backgroundImage: NetworkImage(
-                                                'https://image.tmdb.org/t/p/w500' +
-                                                    _controller
-                                                        .data['created_by']
+                                            _controller.data['created_by']
                                                             [index]
-                                                            ['profile_path']
-                                                        .toString(),
-                                              ),
-                                            ),
+                                                        ['profile_path'] ==
+                                                    ''
+                                                ? CircleAvatar(
+                                                    radius: 45,
+                                                    backgroundImage:
+                                                        NetworkImage(
+                                                      'https://image.tmdb.org/t/p/w500' +
+                                                          _controller.data[
+                                                                  'created_by']
+                                                                  [index][
+                                                                  'profile_path']
+                                                              .toString(),
+                                                    ),
+                                                  )
+                                                : CircleAvatar(
+                                                    radius: 45,
+                                                    backgroundImage:
+                                                        NetworkImage(
+                                                      'https://www.nicepng.com/png/detail/52-521023_download-free-icon-female-vectors-blank-facebook-profile.png',
+                                                    ),
+                                                  ),
                                             SizedBox(height: 10),
                                             genrestext(_controller
                                                 .data['created_by'][index]
@@ -183,13 +196,13 @@ class _TvDetailScreenState extends State<TvDetailScreen> {
                             child: normaltext("Release date : " +
                                 _controller.TvSeriesDetails[0].date
                                     .toString())),
-                        HomeWidget().sliderlist(
+                        detailSliderList(
                           _controller.similarserieslist,
                           'Similar Series',
                           'tv',
                           _controller.similarserieslist.length,
                         ),
-                        HomeWidget().sliderlist(
+                        detailSliderList(
                           _controller.recommendserieslist,
                           'Recommended Series',
                           'tv',
@@ -202,8 +215,8 @@ class _TvDetailScreenState extends State<TvDetailScreen> {
               );
             } else {
               return Center(
-                  child:
-                      CircularProgressIndicator(color: Colors.amber.shade400));
+                child: CircularProgressIndicator(color: MyColor.cGrey1),
+              );
             }
           }),
     );

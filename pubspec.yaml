@@ -40,6 +40,7 @@ dependencies:
   font_awesome_flutter: ^10.7.0
   webview_flutter: ^4.7.0
   youtube_player_flutter: ^9.0.1
+  readmore: ^3.0.0
 
 dev_dependencies:
   flutter_test:

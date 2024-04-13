@@ -136,10 +136,12 @@ class TvDetailController {
     var response5 = await Dio().get(seriestrailer);
 
     print("RESPONSE 5");
+    print(seriestrailer);
 
     print(response5.statusCode);
     if (response5.statusCode == 200) {
       var data5 = response5.data;
+      print(data5);
       for (var i = 0; i < data5['results'].length; i++) {
         if (data5['results'][i]['type'] == 'Trailer') {
           seriestrailerslist.add(
@@ -148,12 +150,12 @@ class TvDetailController {
             ),
           );
         }
-        seriestrailerslist.add(
-          MovieModel(
-            key: "aJ0cZTcTh90",
-          ),
-        );
       }
+      seriestrailerslist.add(
+        MovieModel(
+          key: "aJ0cZTcTh90",
+        ),
+      );
     } else {}
     try {} catch (e) {
       print(e);

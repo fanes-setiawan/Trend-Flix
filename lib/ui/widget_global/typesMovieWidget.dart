@@ -1,5 +1,7 @@
 // ignore: file_names
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:readmore/readmore.dart';
 import 'package:trendflix/colors/myColors.dart';
 
 Widget tittletext(String title) {
@@ -80,6 +82,62 @@ Widget genrestext(String title) {
       fontWeight: FontWeight.bold,
       letterSpacing: 1.25,
     ),
+  );
+}
+
+Widget readMore(String title) {
+  return ReadMoreText(
+    title,
+    trimMode: TrimMode.Line,
+    trimLines: 2,
+    style: TextStyle(
+        fontFamily: 'open sans',
+        decoration: TextDecoration.none,
+        color: Colors.white.withOpacity(0.9),
+        fontSize: 15,
+        fontWeight: FontWeight.w400,
+        letterSpacing: 1.25),
+    colorClickableText: MyColor.cGrey1,
+    annotations: [
+      Annotation(
+        regExp: RegExp(r'#([a-zA-Z0-9_]+)'),
+        spanBuilder: ({required String text, TextStyle? textStyle}) => TextSpan(
+          text: text,
+          style: TextStyle(
+              fontFamily: 'open sans',
+              decoration: TextDecoration.none,
+              color: Colors.white.withOpacity(0.9),
+              fontSize: 13,
+              fontWeight: FontWeight.w400,
+              letterSpacing: 1.25),
+        ),
+      ),
+      Annotation(
+        regExp: RegExp(r'<@(\d+)>'),
+        spanBuilder: ({required String text, TextStyle? textStyle}) => TextSpan(
+          text: title,
+          style: TextStyle(
+              fontFamily: 'open sans',
+              decoration: TextDecoration.none,
+              color: Colors.white.withOpacity(0.9),
+              fontSize: 13,
+              fontWeight: FontWeight.w400,
+              letterSpacing: 1.25),
+          recognizer: TapGestureRecognizer()
+            ..onTap = () {
+              // Handle tap, e.g., navigate to a user profile
+            },
+        ),
+      ),
+      // Additional annotations for URLs...
+    ],
+    moreStyle: TextStyle(
+        fontFamily: 'open sans',
+        decoration: TextDecoration.none,
+        color: MyColor.cGrey1,
+        fontSize: 15,
+        fontWeight: FontWeight.w400,
+        letterSpacing: 1.25),
   );
 }
 
