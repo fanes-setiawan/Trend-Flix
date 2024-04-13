@@ -12,11 +12,11 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  late final HomeController controller;
+  late final HomeController _controller;
   @override
   void initState() {
-    controller = HomeController();
-    controller.tvSeriesFunction();
+    _controller = HomeController();
+    _controller.tvSeriesFunction();
     super.initState();
   }
 
@@ -28,16 +28,38 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: MyColor.cBlack,
         appBar: AppBar(
           backgroundColor: MyColor.cBlack,
-          bottom: const TabBar(
-            tabs: [
-              Tab(
-                text: "Tv Series",
+          bottom: TabBar(
+            labelColor: MyColor.cGrey2,
+            unselectedLabelColor: MyColor.cGrey1,
+            indicatorPadding: const EdgeInsets.all(0.0),
+            indicatorWeight: 4.0,
+            labelPadding: const EdgeInsets.only(left: 0.0, right: 0.0),
+            indicator: const ShapeDecoration(
+                shape: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                        color: Colors.transparent,
+                        width: 0,
+                        style: BorderStyle.solid)),
+                gradient: LinearGradient(
+                    colors: [Color(0xff0081ff), Color(0xff01ff80)])),
+            tabs: <Widget>[
+              Container(
+                height: 50,
+                alignment: Alignment.center,
+                color: MyColor.cBlack,
+                child: const Text("Tv Series"),
               ),
-              Tab(
-                text: "Movies",
+              Container(
+                height: 50,
+                alignment: Alignment.center,
+                color: MyColor.cBlack,
+                child: const Text("Movies"),
               ),
-              Tab(
-                text: "Upcomming",
+              Container(
+                height: 50,
+                alignment: Alignment.center,
+                color: MyColor.cBlack,
+                child: const Text("Upcomming"),
               ),
             ],
           ),
@@ -48,36 +70,36 @@ class _HomeScreenState extends State<HomeScreen> {
             Container(
               color: MyColor.cBlack,
               child: FutureBuilder(
-                future: controller.tvSeriesFunction(),
+                future: _controller.tvSeriesFunction(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting)
                     // ignore: curly_braces_in_flow_control_structures
                     return Center(
-                        child: CircularProgressIndicator(
-                            color: Colors.amber.shade400));
+                        child:
+                            CircularProgressIndicator(color: MyColor.cGrey1));
                   else {
                     return SingleChildScrollView(
                       controller: ScrollController(),
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            HomeWidget().sliderlist(
-                              controller.populartSeries,
+                            HomeWidget().carouselList(
+                              _controller.populartSeries,
                               "Popular Now",
                               "tv",
-                              controller.populartSeries.length,
+                              _controller.populartSeries.length,
                             ),
                             HomeWidget().sliderlist(
-                              controller.onairtSeries,
+                              _controller.onairtSeries,
                               "On Air Now",
                               "tv",
-                              controller.onairtSeries.length,
+                              _controller.onairtSeries.length,
                             ),
                             HomeWidget().sliderlist(
-                              controller.topratedSeries,
+                              _controller.topratedSeries,
                               "Top Rated",
                               "tv",
-                              controller.topratedSeries.length,
+                              _controller.topratedSeries.length,
                             ),
                             const SizedBox(
                               height: 50.0,
@@ -91,42 +113,42 @@ class _HomeScreenState extends State<HomeScreen> {
             Container(
               color: MyColor.cBlack,
               child: FutureBuilder(
-                future: controller.moviesFunction(),
+                future: _controller.moviesFunction(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting)
                     // ignore: curly_braces_in_flow_control_structures
                     return Center(
-                        child: CircularProgressIndicator(
-                            color: Colors.amber.shade400));
+                        child:
+                            CircularProgressIndicator(color: MyColor.cGrey1));
                   else {
                     return SingleChildScrollView(
                       controller: ScrollController(),
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            HomeWidget().sliderlist(
-                              controller.popularMovies,
+                            HomeWidget().carouselList(
+                              _controller.populartSeries,
                               "Popular Now",
                               "movie",
-                              controller.popularMovies.length,
+                              _controller.populartSeries.length,
                             ),
                             HomeWidget().sliderlist(
-                              controller.nowPlayingMovies,
+                              _controller.nowPlayingMovies,
                               "On Air Now",
                               "movie",
-                              controller.nowPlayingMovies.length,
+                              _controller.nowPlayingMovies.length,
                             ),
                             HomeWidget().sliderlist(
-                              controller.topPratedMovies,
+                              _controller.topPratedMovies,
                               "Top Rated",
                               "movie",
-                              controller.topPratedMovies.length,
+                              _controller.topPratedMovies.length,
                             ),
                             HomeWidget().sliderlist(
-                              controller.latesMovies,
+                              _controller.latesMovies,
                               "Lates Movies",
                               "movie",
-                              controller.latesMovies.length,
+                              _controller.latesMovies.length,
                             ),
                             const SizedBox(
                               height: 50.0,
@@ -140,17 +162,17 @@ class _HomeScreenState extends State<HomeScreen> {
             Container(
               color: MyColor.cBlack,
               child: FutureBuilder(
-                  future: controller.getUpcomming(),
+                  future: _controller.getUpcomming(),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.done) {
                       return Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             HomeWidget().sliderlist(
-                                controller.upComming,
+                                _controller.upComming,
                                 "Upcomming",
                                 "movie",
-                                controller.upComming.length),
+                                _controller.upComming.length),
                             Padding(
                                 padding: const EdgeInsets.only(
                                     left: 10.0, top: 15, bottom: 40),

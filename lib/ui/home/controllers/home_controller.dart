@@ -1,7 +1,7 @@
 // ignore_for_file: avoid_print
 
 import 'package:dio/dio.dart';
-import 'package:trendflix/api/api.dart';
+import 'package:trendflix/service/api/api.dart';
 import 'package:trendflix/service/model/movieModel.dart';
 
 class HomeController {

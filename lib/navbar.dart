@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:trendflix/colors/myColors.dart';
 import 'package:trendflix/ui/home/screen/home_screen.dart';
+import 'package:trendflix/ui/search/screen/search_screen.dart';
 
 class NavBar extends StatefulWidget {
   const NavBar({super.key});
@@ -14,7 +15,7 @@ class _NavBarState extends State<NavBar> {
 
   final List<Widget> _pages = <Widget>[
     const HomeScreen(),
-    Container(color: Colors.blue),
+    const SearchScreen(),
     Container(color: Colors.green),
   ];
 
@@ -55,7 +56,7 @@ class _NavBarState extends State<NavBar> {
                   borderRadius: BorderRadius.circular(30),
                   child: BottomNavigationBar(
                     backgroundColor: Colors.transparent.withOpacity(0.6),
-                    unselectedItemColor: MyColor.cWhite,
+                    unselectedItemColor: MyColor.cGrey1,
                     elevation: 2,
                     items: const <BottomNavigationBarItem>[
                       BottomNavigationBarItem(
@@ -72,7 +73,7 @@ class _NavBarState extends State<NavBar> {
                       ),
                     ],
                     currentIndex: _selectedIndex,
-                    selectedItemColor: MyColor.cPurple,
+                    selectedItemColor: MyColor.cGrey2,
                     onTap: _onItemTapped,
                   ),
                 ),
