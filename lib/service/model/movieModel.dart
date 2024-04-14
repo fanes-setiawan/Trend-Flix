@@ -22,6 +22,8 @@ class MovieModel {
   final String? key;
   final String? runtime;
   final String? revenue;
+  final String? mediatype;
+  var popularity;
   final int? id;
 
   MovieModel({
@@ -46,6 +48,8 @@ class MovieModel {
     this.season,
     this.runtime,
     this.revenue,
+    this.mediatype,
+    this.popularity,
     this.id,
   });
 }

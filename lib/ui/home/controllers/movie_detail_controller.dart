@@ -42,6 +42,7 @@ class MovieDetailController {
             voteAverage: data1['vote_average'],
             overview: data1['overview'],
             date: data1['release_date'],
+
             // runtime: data1['runtime'],
             // revenue: data1['revenue'],
           ),

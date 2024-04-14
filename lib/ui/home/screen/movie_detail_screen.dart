@@ -50,9 +50,6 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                               SystemChrome.setEnabledSystemUIMode(
                                   SystemUiMode.manual,
                                   overlays: [SystemUiOverlay.bottom]);
-                              // SystemChrome.setEnabledSystemUIMode(
-                              //     SystemUiMode.manual,
-                              //     overlays: []);
                               SystemChrome.setPreferredOrientations([
                                 DeviceOrientation.portraitUp,
                                 DeviceOrientation.portraitDown,
@@ -80,8 +77,6 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                         )),
                     SliverList(
                         delegate: SliverChildListDelegate([
-                      //add to favoriate button
-
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -159,7 +154,6 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                           ],
                         ),
                       ),
-
                       Padding(
                           padding: EdgeInsets.only(left: 10, top: 10),
                           child: tittletext('Movie Story :')),
@@ -167,7 +161,6 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                           padding: EdgeInsets.only(left: 10, top: 10),
                           child: readMore(
                               _controller.MovieDetails[0].overview.toString())),
-
                       Padding(
                         padding: EdgeInsets.only(left: 10, top: 10),
                         child: ReviewUI(revdeatils: _controller.UserReviews),
@@ -176,7 +169,6 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                           padding: EdgeInsets.only(left: 10, top: 20),
                           child: normaltext('Release Date : ' +
                               _controller.MovieDetails[0].date.toString())),
-
                       detailSliderList(
                         _controller.SimilarMovie,
                         "Similar Movies",
