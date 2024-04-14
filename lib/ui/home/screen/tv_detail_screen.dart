@@ -1,4 +1,4 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first, use_super_parameters, prefer_typing_uninitialized_variables, must_be_immutable, prefer_interpolation_to_compose_strings, prefer_const_constructors
+// ignore_for_file: public_member_api_docs, sort_constructors_first, use_super_parameters, prefer_typing_uninitialized_variables, must_be_immutable, prefer_interpolation_to_compose_strings, prefer_const_constructors, avoid_unnecessary_containers
 // ignore_for_file: unused_field
 
 import 'package:flutter/material.dart';
@@ -62,14 +62,13 @@ class _TvDetailScreenState extends State<TvDetailScreen> {
                               },
                               icon: Icon(FontAwesomeIcons.circleArrowLeft),
                               iconSize: 28,
-                              color: Colors.white),
+                              color: MyColor.cWhite),
                       backgroundColor: Color.fromRGBO(18, 18, 18, 0.5),
                       expandedHeight: MediaQuery.of(context).size.height * 0.35,
                       pinned: true,
                       flexibleSpace: FlexibleSpaceBar(
                         collapseMode: CollapseMode.parallax,
                         background: FittedBox(
-                          fit: BoxFit.fill,
                           child: trailerwatch(
                             trailerytid: _controller.seriestrailerslist[0].key,
                           ),
@@ -78,11 +77,6 @@ class _TvDetailScreenState extends State<TvDetailScreen> {
                   SliverList(
                     delegate: SliverChildListDelegate(
                       [
-                        // addtofavoriate(
-                        //   id: widget.id,
-                        //   type: 'tv',
-                        //   Details: TvSeriesDetails,
-                        // ),
                         Row(
                           children: [
                             Container(
@@ -98,7 +92,6 @@ class _TvDetailScreenState extends State<TvDetailScreen> {
                                     margin: EdgeInsets.only(right: 10),
                                     padding: EdgeInsets.all(10),
                                     decoration: BoxDecoration(
-                                        // color: Color.fromRGBO(25, 25, 25, 1),
                                         borderRadius:
                                             BorderRadius.circular(10)),
                                     child: genrestext(
@@ -110,18 +103,54 @@ class _TvDetailScreenState extends State<TvDetailScreen> {
                           ],
                         ),
                         Container(
-                            padding: EdgeInsets.only(left: 10, top: 12),
-                            child: tittletext("Series Overview : ")),
+                          padding: EdgeInsets.only(left: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              tittletext("Series Overview : "),
+                              Container(
+                                child: Row(
+                                  children: [
+                                    IconButton(
+                                      onPressed: () {
+                                        _controller.isFavorite = true;
+                                        var snackBar = SnackBar(
+                                          backgroundColor: MyColor.cGrey2,
+                                          content: showSnackBarText(
+                                              'Successfully added to favorites.'),
+                                        );
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(snackBar);
+                                      },
+                                      icon: Icon(
+                                        color: _controller.isFavorite == false
+                                            ? MyColor.cWhite
+                                            : MyColor.cGrey2,
+                                        Icons.bookmark,
+                                        size: 24.0,
+                                      ),
+                                    ),
+                                    IconButton(
+                                      onPressed: () {},
+                                      icon: Icon(
+                                        color: MyColor.cWhite,
+                                        Icons.share,
+                                        size: 24.0,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
 
                         Container(
                             padding: EdgeInsets.only(left: 10, top: 20),
                             child: readMore(_controller
                                 .TvSeriesDetails[0].overview
                                 .toString())),
-                        // Padding(
-                        //   padding: const EdgeInsets.only(left: 20.0, top: 10),
-                        //   child: ReviewUI(revdeatils: TvSeriesREview),
-                        // ),
+
                         Container(
                             padding: EdgeInsets.only(left: 10, top: 20),
                             child: boldtext("Status : " +

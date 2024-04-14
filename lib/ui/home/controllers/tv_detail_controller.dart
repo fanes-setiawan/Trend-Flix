@@ -7,6 +7,7 @@ import 'package:trendflix/service/model/movieModel.dart';
 class TvDetailController {
   String? id;
   TvDetailController({this.id});
+  bool isFavorite = false;
 
   var data;
   List<MovieModel> TvSeriesDetails = [];
@@ -14,6 +15,7 @@ class TvDetailController {
   List<MovieModel> similarserieslist = [];
   List<MovieModel> recommendserieslist = [];
   List<MovieModel> seriestrailerslist = [];
+
   Future<void> getTvDetail() async {
     var tvseriesdetail = "${MyApi.ApiUrl}/tv/$id?api_key=${MyApi.ApiKey}";
     var tvseriesreview =

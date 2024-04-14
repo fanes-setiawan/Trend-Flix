@@ -141,13 +141,69 @@ Widget readMore(String title) {
   );
 }
 
-Widget overviewtext(String title) {
+Widget readMoreChat(String title) {
+  return ReadMoreText(
+    title,
+    trimMode: TrimMode.Line,
+    trimLines: 4,
+    style: TextStyle(
+        fontFamily: 'open sans',
+        decoration: TextDecoration.none,
+        color: Colors.white.withOpacity(0.9),
+        fontSize: 11,
+        fontWeight: FontWeight.w400,
+        letterSpacing: 1.25),
+    colorClickableText: MyColor.cBlack,
+    annotations: [
+      Annotation(
+        regExp: RegExp(r'#([a-zA-Z0-9_]+)'),
+        spanBuilder: ({required String text, TextStyle? textStyle}) => TextSpan(
+          text: text,
+          style: TextStyle(
+              fontFamily: 'open sans',
+              decoration: TextDecoration.none,
+              color: Colors.white.withOpacity(0.9),
+              fontSize: 13,
+              fontWeight: FontWeight.w400,
+              letterSpacing: 1.25),
+        ),
+      ),
+      Annotation(
+        regExp: RegExp(r'<@(\d+)>'),
+        spanBuilder: ({required String text, TextStyle? textStyle}) => TextSpan(
+          text: title,
+          style: TextStyle(
+              fontFamily: 'open sans',
+              decoration: TextDecoration.none,
+              color: Colors.white.withOpacity(0.9),
+              fontSize: 13,
+              fontWeight: FontWeight.w400,
+              letterSpacing: 1.25),
+          recognizer: TapGestureRecognizer()
+            ..onTap = () {
+              // Handle tap, e.g., navigate to a user profile
+            },
+        ),
+      ),
+      // Additional annotations for URLs...
+    ],
+    moreStyle: TextStyle(
+        fontFamily: 'open sans',
+        decoration: TextDecoration.none,
+        color: MyColor.cBlack,
+        fontSize: 11,
+        fontWeight: FontWeight.w400,
+        letterSpacing: 1.25),
+  );
+}
+
+Widget showSnackBarText(String title) {
   return Text(title,
       style: TextStyle(
           fontFamily: 'open sans',
           decoration: TextDecoration.none,
-          color: Colors.white.withOpacity(0.9),
-          fontSize: 15,
+          color: MyColor.cGrey1,
+          fontSize: 11,
           fontWeight: FontWeight.w400,
           letterSpacing: 1.25));
 }
@@ -162,4 +218,15 @@ Widget Tabbartext(String title) {
           fontSize: 15,
           fontWeight: FontWeight.w500,
           letterSpacing: 1));
+}
+
+Widget overviewtext(String title) {
+  return Text(title,
+      style: TextStyle(
+          fontFamily: 'open sans',
+          decoration: TextDecoration.none,
+          color: Colors.white.withOpacity(0.9),
+          fontSize: 15,
+          fontWeight: FontWeight.w400,
+          letterSpacing: 1.25));
 }

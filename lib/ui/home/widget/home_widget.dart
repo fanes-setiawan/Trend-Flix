@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:trendflix/service/model/movieModel.dart';
+import 'package:trendflix/ui/home/screen/movie_detail_screen.dart';
 import 'package:trendflix/ui/home/screen/tv_detail_screen.dart';
 
 import '../../widget_global/typesMovieWidget.dart';
@@ -30,13 +31,12 @@ class HomeWidget {
               return GestureDetector(
                 onTap: () {
                   if (type == 'movie') {
-                    // print(firstlistname[index]['id']);
-                    // Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //         builder: (context) => MovieDetails(
-                    //               id: firstlistname[index]['id'],
-                    //             )));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => MovieDetailScreen(
+                                  id: firstlistname[index].id,
+                                )));
                   } else if (type == 'tv') {
                     Navigator.push(
                       context,
@@ -141,19 +141,21 @@ class HomeWidget {
                   return GestureDetector(
                     onTap: () {
                       if (type == 'movie') {
-                        // print(firstlistname[index]['id']);
-                        // Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //         builder: (context) => MovieDetails(
-                        //               id: firstlistname[index]['id'],
-                        //             )));
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => MovieDetailScreen(
+                              id: data.id,
+                            ),
+                          ),
+                        );
                       } else if (type == 'tv') {
                         Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    TvDetailScreen(id: data.id)));
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => TvDetailScreen(id: data.id),
+                          ),
+                        );
                       }
                     },
                     child: Container(

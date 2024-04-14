@@ -20,6 +20,8 @@ class MovieModel {
   final String? creationDate;
   final String? fullReview;
   final String? key;
+  final String? runtime;
+  final String? revenue;
   final int? id;
 
   MovieModel({
@@ -42,6 +44,8 @@ class MovieModel {
     this.rating,
     this.review,
     this.season,
+    this.runtime,
+    this.revenue,
     this.id,
   });
 }
