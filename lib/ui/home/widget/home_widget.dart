@@ -6,7 +6,7 @@ import 'package:trendflix/service/model/movieModel.dart';
 import 'package:trendflix/ui/home/screen/movie_detail_screen.dart';
 import 'package:trendflix/ui/home/screen/tv_detail_screen.dart';
 
-import '../../widget_global/typesMovieWidget.dart';
+import '../../../widget_global/typesMovieWidget.dart';
 
 class HomeWidget {
   Widget sliderlist(

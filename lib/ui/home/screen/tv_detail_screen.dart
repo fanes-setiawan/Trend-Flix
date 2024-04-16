@@ -1,17 +1,19 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first, use_super_parameters, prefer_typing_uninitialized_variables, must_be_immutable, prefer_interpolation_to_compose_strings, prefer_const_constructors, avoid_unnecessary_containers
+// ignore_for_file: public_member_api_docs, sort_constructors_first, use_super_parameters, prefer_typing_uninitialized_variables, must_be_immutable, prefer_interpolation_to_compose_strings, prefer_const_constructors, avoid_unnecessary_containers, use_build_context_synchronously, avoid_print
 // ignore_for_file: unused_field
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:trendflix/colors/myColors.dart';
+import 'package:trendflix/service/model/sqflite_model.dart';
 
 import 'package:trendflix/ui/home/controllers/tv_detail_controller.dart';
 
-import 'package:trendflix/ui/widget_global/typesMovieWidget.dart';
+import 'package:trendflix/widget_global/typesMovieWidget.dart';
 
-import '../../widget_global/TrailerUI.dart';
-import '../../widget_global/detailSliderList.dart';
+import '../../../service/db_sqflite/database_helper.dart';
+import '../../../widget_global/TrailerUI.dart';
+import '../../../widget_global/detailSliderList.dart';
 
 class TvDetailScreen extends StatefulWidget {
   var id;
@@ -112,15 +114,43 @@ class _TvDetailScreenState extends State<TvDetailScreen> {
                                 child: Row(
                                   children: [
                                     IconButton(
-                                      onPressed: () {
-                                        _controller.isFavorite = true;
-                                        var snackBar = SnackBar(
-                                          backgroundColor: MyColor.cGrey2,
-                                          content: showSnackBarText(
-                                              'Successfully added to favorites.'),
+                                      onPressed: () async {
+                                        SqfliteModel addFavorite = SqfliteModel(
+                                          id: _controller.TvSeriesDetails[0].id,
+                                          name: _controller
+                                              .TvSeriesDetails[0].name,
+                                          posterPath: _controller
+                                              .TvSeriesDetails[0].posterPath,
+                                          voteAverage: _controller
+                                              .TvSeriesDetails[0].voteAverage,
+                                          date: _controller
+                                              .TvSeriesDetails[0].date,
+                                          type: "tv",
                                         );
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(snackBar);
+                                        DatabaseHelper dbHelper =
+                                            DatabaseHelper();
+                                        int result = await dbHelper
+                                            .insertMovie(addFavorite);
+                                        if (result != 0) {
+                                          _controller.isFavorite = true;
+                                          var snackBar = SnackBar(
+                                            backgroundColor: MyColor.cGrey2,
+                                            content: showSnackBarText(
+                                                'Successfully added to favorites.'),
+                                          );
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(snackBar);
+                                          print('Movie inserted successfully!');
+                                        } else {
+                                          print('Failed to insert movie.');
+                                          var snackBar = SnackBar(
+                                            backgroundColor: MyColor.cGrey2,
+                                            content: showSnackBarText(
+                                                'Failed to insert movie.'),
+                                          );
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(snackBar);
+                                        }
                                       },
                                       icon: Icon(
                                         color: _controller.isFavorite == false

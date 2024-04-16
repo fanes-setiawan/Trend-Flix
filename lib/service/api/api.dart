@@ -1,7 +1,7 @@
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps
 
 class MyApi {
-  static String ApiKey = "your_key";
+  static String ApiKey = "d9e7c7a800c9b17ad54fbc025b535f38";
   static String ApiUrl = "https://api.themoviedb.org/3/";
 
   //api tv series

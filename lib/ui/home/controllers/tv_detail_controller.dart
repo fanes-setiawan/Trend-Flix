@@ -36,6 +36,8 @@ class TvDetailController {
       for (var i = 0; i < 1; i++) {
         TvSeriesDetails.add(
           MovieModel(
+            name: data1['original_name'],
+            posterPath: data1['poster_path'],
             background_path: data1['backdrop_path'],
             title: data1['original_name'],
             voteAverage: data1['vote_average'],

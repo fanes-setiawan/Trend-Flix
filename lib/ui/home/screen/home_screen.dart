@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:trendflix/colors/myColors.dart';
 import 'package:trendflix/ui/home/controllers/home_controller.dart';
 import 'package:trendflix/ui/home/widget/home_widget.dart';
-import 'package:trendflix/ui/widget_global/typesMovieWidget.dart';
+import 'package:trendflix/widget_global/typesMovieWidget.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

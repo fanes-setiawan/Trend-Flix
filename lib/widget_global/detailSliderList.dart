@@ -1,10 +1,11 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:trendflix/ui/home/screen/movie_detail_screen.dart';
 import 'package:trendflix/ui/home/screen/tv_detail_screen.dart';
-import 'package:trendflix/ui/widget_global/typesMovieWidget.dart';
+import 'package:trendflix/widget_global/typesMovieWidget.dart';
 
-import '../../service/model/movieModel.dart';
+import '../service/model/movieModel.dart';
 
 Widget detailSliderList(
   List<MovieModel> firstlistname,
@@ -28,13 +29,12 @@ Widget detailSliderList(
             return GestureDetector(
               onTap: () {
                 if (type == 'movie') {
-                  // print(firstlistname[index]['id']);
-                  // Navigator.push(
-                  //     context,
-                  //     MaterialPageRoute(
-                  //         builder: (context) => MovieDetails(
-                  //               id: firstlistname[index]['id'],
-                  //             )));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => MovieDetailScreen(
+                                id: firstlistname[index].id,
+                              )));
                 } else if (type == 'tv') {
                   Navigator.push(
                     context,

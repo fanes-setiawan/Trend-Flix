@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:trendflix/colors/myColors.dart';
+import 'package:trendflix/ui/favorite/screen/favorite_screen.dart';
 import 'package:trendflix/ui/home/screen/home_screen.dart';
 import 'package:trendflix/ui/search/screen/search_screen.dart';
 
@@ -16,7 +17,7 @@ class _NavBarState extends State<NavBar> {
   final List<Widget> _pages = <Widget>[
     const HomeScreen(),
     const SearchScreen(),
-    Container(color: Colors.green),
+    const FavoriteScreen(),
   ];
 
   void _onItemTapped(int index) {

@@ -5,7 +5,7 @@ import 'package:trendflix/colors/myColors.dart';
 import 'package:trendflix/ui/search/widget/search_widget.dart';
 
 import '../../../service/data/checker.dart';
-import '../../widget_global/typesMovieWidget.dart';
+import '../../../widget_global/typesMovieWidget.dart';
 import '../controller/search_controller.dart';
 
 class SearchScreen extends StatefulWidget {
