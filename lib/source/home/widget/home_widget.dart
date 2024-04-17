@@ -3,8 +3,8 @@ import 'dart:ui';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:trendflix/service/model/movieModel.dart';
-import 'package:trendflix/ui/home/screen/movie_detail_screen.dart';
-import 'package:trendflix/ui/home/screen/tv_detail_screen.dart';
+import 'package:trendflix/source/home/screen/movie_detail_screen.dart';
+import 'package:trendflix/source/home/screen/tv_detail_screen.dart';
 
 import '../../../widget_global/typesMovieWidget.dart';
 

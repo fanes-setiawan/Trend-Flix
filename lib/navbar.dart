@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:trendflix/colors/myColors.dart';
-import 'package:trendflix/ui/favorite/screen/favorite_screen.dart';
-import 'package:trendflix/ui/home/screen/home_screen.dart';
-import 'package:trendflix/ui/search/screen/search_screen.dart';
+import 'package:trendflix/source/favorite/screen/favorite_screen.dart';
+import 'package:trendflix/source/home/screen/home_screen.dart';
+import 'package:trendflix/source/search/screen/search_screen.dart';
 
 class NavBar extends StatefulWidget {
   const NavBar({super.key});

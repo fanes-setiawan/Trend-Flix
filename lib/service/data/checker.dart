@@ -1,8 +1,8 @@
 // ignore_for_file: camel_case_types, use_key_in_widget_constructors, prefer_typing_uninitialized_variables, prefer_const_constructors, must_be_immutable
 
 import 'package:flutter/material.dart';
-import 'package:trendflix/ui/home/screen/movie_detail_screen.dart';
-import 'package:trendflix/ui/home/screen/tv_detail_screen.dart';
+import 'package:trendflix/source/home/screen/movie_detail_screen.dart';
+import 'package:trendflix/source/home/screen/tv_detail_screen.dart';
 
 class descriptioncheckui extends StatefulWidget {
   var newid;

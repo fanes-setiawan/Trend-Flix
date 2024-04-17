@@ -3,8 +3,8 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:trendflix/service/model/sqflite_model.dart';
 
-import '../ui/home/screen/movie_detail_screen.dart';
-import '../ui/home/screen/tv_detail_screen.dart';
+import '../source/home/screen/movie_detail_screen.dart';
+import '../source/home/screen/tv_detail_screen.dart';
 import 'typesMovieWidget.dart';
 
 Widget sliderlistLocal(

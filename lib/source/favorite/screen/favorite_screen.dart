@@ -5,7 +5,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:trendflix/colors/myColors.dart';
 import 'package:trendflix/service/db_sqflite/database_helper.dart';
-import 'package:trendflix/ui/favorite/controller/favorite_controller.dart';
+import 'package:trendflix/source/favorite/controller/favorite_controller.dart';
 
 import '../../../widget_global/typesMovieWidget.dart';
 import '../../home/screen/movie_detail_screen.dart';
@@ -50,8 +50,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       childAspectRatio: 0.8,
                       crossAxisCount: 3,
-                      mainAxisSpacing: 4,
-                      crossAxisSpacing: 4,
+                      mainAxisSpacing: 10,
                     ),
                     itemCount: _controller.movies.length,
                     shrinkWrap: true,

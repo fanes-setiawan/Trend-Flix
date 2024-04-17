@@ -7,7 +7,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:trendflix/colors/myColors.dart';
 import 'package:trendflix/service/model/sqflite_model.dart';
 
-import 'package:trendflix/ui/home/controllers/tv_detail_controller.dart';
+import 'package:trendflix/source/home/controllers/tv_detail_controller.dart';
 
 import 'package:trendflix/widget_global/typesMovieWidget.dart';
 
@@ -49,22 +49,20 @@ class _TvDetailScreenState extends State<TvDetailScreen> {
                 slivers: [
                   SliverAppBar(
                       automaticallyImplyLeading: false,
-                      leading:
-                          //circular icon button
-                          IconButton(
-                              onPressed: () {
-                                SystemChrome.setEnabledSystemUIMode(
-                                    SystemUiMode.manual,
-                                    overlays: [SystemUiOverlay.bottom]);
-                                SystemChrome.setPreferredOrientations([
-                                  DeviceOrientation.portraitUp,
-                                  DeviceOrientation.portraitDown,
-                                ]);
-                                Navigator.pop(context);
-                              },
-                              icon: Icon(FontAwesomeIcons.circleArrowLeft),
-                              iconSize: 28,
-                              color: MyColor.cWhite),
+                      leading: IconButton(
+                          onPressed: () {
+                            SystemChrome.setEnabledSystemUIMode(
+                                SystemUiMode.manual,
+                                overlays: [SystemUiOverlay.bottom]);
+                            SystemChrome.setPreferredOrientations([
+                              DeviceOrientation.portraitUp,
+                              DeviceOrientation.portraitDown,
+                            ]);
+                            Navigator.pop(context);
+                          },
+                          icon: Icon(FontAwesomeIcons.circleArrowLeft),
+                          iconSize: 28,
+                          color: MyColor.cWhite),
                       backgroundColor: Color.fromRGBO(18, 18, 18, 0.5),
                       expandedHeight: MediaQuery.of(context).size.height * 0.35,
                       pinned: true,
@@ -79,29 +77,40 @@ class _TvDetailScreenState extends State<TvDetailScreen> {
                   SliverList(
                     delegate: SliverChildListDelegate(
                       [
-                        Row(
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Container(
-                              padding: EdgeInsets.only(left: 10, top: 10),
-                              height: 50,
-                              width: MediaQuery.of(context).size.width,
-                              child: ListView.builder(
-                                physics: BouncingScrollPhysics(),
-                                scrollDirection: Axis.horizontal,
-                                itemCount: _controller.data['genres'].length,
-                                itemBuilder: (context, index) {
-                                  return Container(
-                                    margin: EdgeInsets.only(right: 10),
-                                    padding: EdgeInsets.all(10),
-                                    decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(10)),
-                                    child: genrestext(
-                                        "#${_controller.TvSeriesDetails[index + 1].genre}"),
-                                  );
-                                },
-                              ),
-                            )
+                            Padding(
+                                padding: EdgeInsets.only(left: 10),
+                                child: tittletext(_controller
+                                    .TvSeriesDetails[0].title
+                                    .toString())),
+                            Row(
+                              children: [
+                                Container(
+                                  padding: EdgeInsets.only(left: 10, top: 10),
+                                  height: 50,
+                                  width: MediaQuery.of(context).size.width,
+                                  child: ListView.builder(
+                                    physics: BouncingScrollPhysics(),
+                                    scrollDirection: Axis.horizontal,
+                                    itemCount:
+                                        _controller.data['genres'].length,
+                                    itemBuilder: (context, index) {
+                                      return Container(
+                                        margin: EdgeInsets.only(right: 10),
+                                        padding: EdgeInsets.all(10),
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(10)),
+                                        child: genrestext(
+                                            "#${_controller.TvSeriesDetails[index + 1].genre}"),
+                                      );
+                                    },
+                                  ),
+                                )
+                              ],
+                            ),
                           ],
                         ),
                         Container(

@@ -48,10 +48,10 @@ class HomeController {
         for (var i = 0; i < results.length; i++) {
           topratedSeries.add(
             MovieModel(
-              id: results[i]['id'] ?? '',
+              id: results[i]['id'] ?? 0,
               name: results[i]['original_name'] ?? '',
               posterPath: results[i]['poster_path'] ?? '',
-              voteAverage: results[i]['vote_average'].toDouble(),
+              voteAverage: results[i]['vote_average'].toDouble() ?? 0.0,
               date: results[i]['first_air_date'] ?? '',
             ),
           );

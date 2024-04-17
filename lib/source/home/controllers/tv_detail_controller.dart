@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print, prefer_interpolation_to_compose_strings, non_constant_identifier_names
+// ignore_for_file: avoid_print, prefer_interpolation_to_compose_strings, non_constant_identifier_names, prefer_typing_uninitialized_variables
 
 import 'package:dio/dio.dart';
 import 'package:trendflix/service/api/api.dart';
@@ -85,14 +85,8 @@ class TvDetailController {
             rating: data2['results'][i]['author_details']['rating'] == null
                 ? "Not Rated"
                 : data2['results'][i]['author_details']['rating'].toString(),
-            avatarPhoto: data2['results'][i]['author_details']['rating']
-                        ['avatar_path'] ==
-                    null
-                ? "https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png"
-                : "https://image.tmdb.org/t/p/w500" +
-                    data2['results'][i]['author_details']['avatar_path'],
             creationDate: data2['results'][i]['author_details']['avatar_path'],
-            fullReview: data2['results'][i]['url'],
+            fullReview: data2['results'][i]['url'] ?? '',
           ),
         );
       }
@@ -150,7 +144,7 @@ class TvDetailController {
         if (data5['results'][i]['type'] == 'Trailer') {
           seriestrailerslist.add(
             MovieModel(
-              key: data5['results'][i]['key'],
+              key: data5['results'][i]['key'] ?? 'aJ0cZTcTh90',
             ),
           );
         }

@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:trendflix/colors/myColors.dart';
-import 'package:trendflix/ui/search/widget/search_widget.dart';
+import 'package:trendflix/source/search/widget/search_widget.dart';
 
 import '../../../service/data/checker.dart';
 import '../../../widget_global/typesMovieWidget.dart';

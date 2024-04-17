@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:trendflix/colors/myColors.dart';
 
-import 'package:trendflix/ui/home/controllers/movie_detail_controller.dart';
+import 'package:trendflix/source/home/controllers/movie_detail_controller.dart';
 
 import '../../../service/db_sqflite/database_helper.dart';
 import '../../../service/model/sqflite_model.dart';

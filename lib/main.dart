@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:trendflix/navbar.dart';
+import 'package:trendflix/source/auth/screen/login_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,7 +18,8 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: NavBar(),
+      home: const LoginScreen(),
+      //  NavBar(),
     );
   }
 }

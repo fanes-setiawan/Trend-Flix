@@ -1,8 +1,8 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:trendflix/ui/home/screen/movie_detail_screen.dart';
-import 'package:trendflix/ui/home/screen/tv_detail_screen.dart';
+import 'package:trendflix/source/home/screen/movie_detail_screen.dart';
+import 'package:trendflix/source/home/screen/tv_detail_screen.dart';
 import 'package:trendflix/widget_global/typesMovieWidget.dart';
 
 import '../service/model/movieModel.dart';

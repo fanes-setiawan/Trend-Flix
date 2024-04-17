@@ -15,6 +15,17 @@ Widget tittletext(String title) {
           letterSpacing: 1.25));
 }
 
+Widget titleBold(String title) {
+  return Text(title,
+      style: TextStyle(
+          decoration: TextDecoration.none,
+          fontFamily: 'Roboto',
+          color: Colors.white.withOpacity(0.9),
+          fontSize: 30,
+          fontWeight: FontWeight.bold,
+          letterSpacing: 1.25));
+}
+
 Widget boldtext(String title) {
   return Text(title,
       style: TextStyle(

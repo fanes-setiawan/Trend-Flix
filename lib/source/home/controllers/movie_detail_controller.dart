@@ -37,11 +37,14 @@ class MovieDetailController {
       for (var i = 0; i < 1; i++) {
         MovieDetails.add(
           MovieModel(
-            background_path: data1['backdrop_path'],
-            title: data1['title'],
-            voteAverage: data1['vote_average'],
-            overview: data1['overview'],
-            date: data1['release_date'],
+            posterPath: data1['poster_path'],
+            name: data1['title'],
+            id: data1['id'],
+            background_path: data1['backdrop_path'] ?? '',
+            title: data1['title'] ?? '',
+            voteAverage: data1['vote_average'] ?? '',
+            overview: data1['overview'] ?? '',
+            date: data1['release_date'] ?? '',
 
             // runtime: data1['runtime'],
             // revenue: data1['revenue'],
@@ -63,18 +66,14 @@ class MovieDetailController {
       for (var i = 0; i < data2['results'].length; i++) {
         UserReviews.add(
           MovieModel(
-            name: data2['results'][i]['author'],
-            review: data2['results'][i]['content'],
+            name: data2['results'][i]['author'] ?? '',
+            review: data2['results'][i]['content'] ?? '',
             rating: data2['results'][i]['author_details']['rating'] == null
                 ? "Not Rated"
                 : data2['results'][i]['author_details']['rating'].toString(),
-            avatarPhoto: data2['results'][i]['author_details']['avatar_path'] ==
-                    null
-                ? "https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png"
-                : "https://image.tmdb.org/t/p/w500" +
-                    data2['results'][i]['author_details']['avatar_path'],
-            creationDate: data2['results'][i]['created_at'].substring(0, 10),
-            fullReview: data2['results'][i]['url'],
+            creationDate:
+                data2['results'][i]['created_at'].substring(0, 10) ?? '',
+            fullReview: data2['results'][i]['url'] ?? '',
           ),
         );
       }
@@ -88,11 +87,11 @@ class MovieDetailController {
       for (var i = 0; i < data3['results'].length; i++) {
         SimilarMovie.add(
           MovieModel(
-            posterPath: data3['results'][i]['poster_path'],
-            name: data3['results'][i]['title'],
-            voteAverage: data3['results'][i]['vote_average'],
-            date: data3['results'][i]['release_date'],
-            id: data3['results'][i]['id'],
+            posterPath: data3['results'][i]['poster_path'] ?? '',
+            name: data3['results'][i]['title'] ?? '',
+            voteAverage: data3['results'][i]['vote_average'] ?? '',
+            date: data3['results'][i]['release_date'] ?? '',
+            id: data3['results'][i]['id'] ?? 0,
           ),
         );
       }

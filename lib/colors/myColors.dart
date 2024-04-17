@@ -8,4 +8,5 @@ class MyColor {
   static Color cGrey = Colors.grey;
   static Color cGrey1 = Color(0xff525c6e);
   static Color cGrey2 = Color(0xffacb3bf);
+  static Color cRed = Colors.red;
 }
