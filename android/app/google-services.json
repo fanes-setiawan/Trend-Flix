@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "331560479487",
+    "project_id": "trend-flix-94a15",
+    "storage_bucket": "trend-flix-94a15.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:331560479487:android:3fde80b31427a4b547faca",
+        "android_client_info": {
+          "package_name": "com.example.trendflix"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "331560479487-im51p3ei0c401t5vvui4eo9hj15g7ufc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.trendflix",
+            "certificate_hash": "a1dfaaf8f350a84aa613b101892a2c9612d0b57e"
+          }
+        },
+        {
+          "client_id": "331560479487-qolt7vdfjkgra0trpgal42u10bfpdq0a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC8AuvFhO_cJOvfGv7FjvAHFRJgJiY8cvU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "331560479487-qolt7vdfjkgra0trpgal42u10bfpdq0a.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "331560479487-ccp1inqnn4qup1b29g7i89paqqk6lan9.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.trendflix"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

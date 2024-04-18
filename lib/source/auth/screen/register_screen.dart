@@ -20,7 +20,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   void initState() {
-    _controller = RegisterController();
+    _controller = RegisterController(context: context);
     super.initState();
   }
 
@@ -62,6 +62,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
               ),
               formEmailWidget(
+                controller: _controller.TextNameControl,
                 title: 'Name',
                 hintText: 'your name',
               ),
@@ -69,6 +70,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 height: 20.0,
               ),
               formEmailWidget(
+                controller: _controller.TextEmailControl,
                 title: 'Email',
                 hintText: 'email@email.com',
               ),
@@ -76,6 +78,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 height: 20.0,
               ),
               formPassWidget(
+                controller: _controller.TextPassControl,
                 title: "Password",
                 hintText: 'Enter your password',
                 obscureText: _controller.isObscure,
@@ -111,17 +114,41 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ),
                         side: BorderSide.none,
                       ),
-                      onPressed: () {},
-                      child: Tabbartext('Create account'),
+                      onPressed: () async {
+                        _controller.isLoading = true;
+                        setState(() {});
+                        await _controller.regEmailPass();
+                        _controller.isLoading = false;
+                        setState(() {});
+                      },
+                      child: !_controller.isLoading
+                          ? Tabbartext('Create account')
+                          : Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: CircularProgressIndicator(
+                                color: MyColor.cGrey2,
+                              ),
+                            ),
                     ),
                   ),
                 ],
               ),
+              Container(
+                padding: const EdgeInsets.all(15),
+                child: Center(
+                  child: showSnackBarText('-OR-'),
+                ),
+              ),
               Center(
-                child: SizedBox(
-                  width: 120,
-                  height: 60,
-                  child: Image.asset('assets/logo/logo_google.png'),
+                child: InkWell(
+                  onTap: () async {
+                    await _controller.regGoogle();
+                  },
+                  child: SizedBox(
+                    width: 120,
+                    height: 60,
+                    child: Image.asset('assets/logo/logo_google.png'),
+                  ),
                 ),
               ),
               Row(

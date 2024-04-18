@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:trendflix/colors/myColors.dart';
+import 'package:trendflix/navbar.dart';
 import 'package:trendflix/source/auth/controller/login_controller.dart';
 import 'package:trendflix/source/auth/screen/register_screen.dart';
 import 'package:trendflix/widget_global/form_widget.dart';
@@ -91,7 +92,14 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         side: BorderSide.none,
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushReplacement<void, void>(
+                          context,
+                          MaterialPageRoute<void>(
+                            builder: (BuildContext context) => const NavBar(),
+                          ),
+                        );
+                      },
                       child: Tabbartext('Anonymous'),
                     ),
                   ),
