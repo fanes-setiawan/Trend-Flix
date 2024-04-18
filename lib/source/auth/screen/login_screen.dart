@@ -75,7 +75,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         side: BorderSide.none,
                       ),
-                      onPressed: () {},
+                      onPressed: () async {
+                        await _controller.loginGoogle();
+                      },
                       child: Tabbartext('Google'),
                     ),
                   ),
