@@ -1,5 +1,9 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:trendflix/colors/myColors.dart';
+import 'package:trendflix/source/auth/screen/login_screen.dart';
 import 'package:trendflix/source/home/controllers/home_controller.dart';
 import 'package:trendflix/source/home/widget/home_widget.dart';
 import 'package:trendflix/widget_global/typesMovieWidget.dart';
@@ -35,13 +39,20 @@ class _HomeScreenState extends State<HomeScreen> {
             indicatorWeight: 4.0,
             labelPadding: const EdgeInsets.only(left: 0.0, right: 0.0),
             indicator: const ShapeDecoration(
-                shape: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                        color: Colors.transparent,
-                        width: 0,
-                        style: BorderStyle.solid)),
-                gradient: LinearGradient(
-                    colors: [Color(0xff0081ff), Color(0xff01ff80)])),
+              shape: UnderlineInputBorder(
+                borderSide: BorderSide(
+                  color: Colors.transparent,
+                  width: 0,
+                  style: BorderStyle.solid,
+                ),
+              ),
+              gradient: LinearGradient(
+                colors: [
+                  Color(0xff0081ff),
+                  Color(0xff01ff80),
+                ],
+              ),
+            ),
             tabs: <Widget>[
               Container(
                 height: 50,
@@ -64,6 +75,24 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
           title: tittletext("TREND FLIX"),
+          actions: [
+            IconButton(
+              onPressed: () async {
+                await FirebaseAuth.instance.signOut();
+                Navigator.pushReplacement<void, void>(
+                  context,
+                  MaterialPageRoute<void>(
+                    builder: (BuildContext context) => const LoginScreen(),
+                  ),
+                );
+              },
+              icon: Icon(
+                Icons.exit_to_app,
+                size: 24.0,
+                color: MyColor.cWhite,
+              ),
+            ),
+          ],
         ),
         body: TabBarView(
           children: [
@@ -162,28 +191,28 @@ class _HomeScreenState extends State<HomeScreen> {
             Container(
               color: MyColor.cBlack,
               child: FutureBuilder(
-                  future: _controller.getUpcomming(),
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.done) {
-                      return Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            HomeWidget().sliderlist(
-                                _controller.upComming,
-                                "Upcomming",
-                                "movie",
-                                _controller.upComming.length),
-                            Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 10.0, top: 15, bottom: 40),
-                                child: tittletext("Many More Coming Soon... "))
-                          ]);
-                    } else {
-                      return const Center(
-                          child:
-                              CircularProgressIndicator(color: Colors.amber));
-                    }
-                  }),
+                future: _controller.getUpcomming(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          HomeWidget().sliderlist(
+                              _controller.upComming,
+                              "Upcomming",
+                              "movie",
+                              _controller.upComming.length),
+                          Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 10.0, top: 15, bottom: 40),
+                              child: tittletext("Many More Coming Soon... "))
+                        ]);
+                  } else {
+                    return const Center(
+                        child: CircularProgressIndicator(color: Colors.amber));
+                  }
+                },
+              ),
             ),
           ],
         ),

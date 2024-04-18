@@ -18,7 +18,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   void initState() {
-    _controller = LoginController();
+    _controller = LoginController(context: context);
     super.initState();
   }
 
@@ -112,6 +112,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               formEmailWidget(
+                controller: _controller.TextEmailControl,
                 title: 'Email',
                 hintText: 'email@email.com',
               ),
@@ -119,6 +120,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: 20.0,
               ),
               formPassWidget(
+                controller: _controller.TextPassControl,
                 title: "Password",
                 hintText: 'Enter your password',
                 obscureText: _controller.isObscure,
@@ -154,8 +156,21 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         side: BorderSide.none,
                       ),
-                      onPressed: () {},
-                      child: Tabbartext('Log in'),
+                      onPressed: () {
+                        _controller.isLoading = true;
+                        setState(() {});
+                        _controller.loginEmailPass();
+                        _controller.isLoading = false;
+                        setState(() {});
+                      },
+                      child: !_controller.isLoading
+                          ? Tabbartext('Log in')
+                          : Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: CircularProgressIndicator(
+                                color: MyColor.cGrey2,
+                              ),
+                            ),
                     ),
                   ),
                 ],
