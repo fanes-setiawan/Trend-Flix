@@ -69,4 +69,18 @@ class LoginController {
       print(err);
     }
   }
+
+  loginAnony() async {
+    try {
+      await FirebaseAuth.instance.signInAnonymously();
+      Navigator.pushReplacement<void, void>(
+        context,
+        MaterialPageRoute<void>(
+          builder: (BuildContext context) => const NavBar(),
+        ),
+      );
+    } catch (err) {
+      print(err);
+    }
+  }
 }
