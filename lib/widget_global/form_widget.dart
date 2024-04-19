@@ -4,7 +4,7 @@ import 'package:trendflix/widget_global/typesMovieWidget.dart';
 
 import '../colors/myColors.dart';
 
-Widget formEmailWidget({
+Widget formWidget({
   String? title,
   String? hintText,
   bool validate = true,
@@ -12,6 +12,7 @@ Widget formEmailWidget({
   TextEditingController? controller,
   void Function(String)? onSubmitted,
   void Function(String)? onChanged,
+  TextInputType? keyboardType,
 }) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
@@ -48,7 +49,7 @@ Widget formEmailWidget({
               RegExp(r'[a-zA-Z0-9@._-]'),
             ),
           ],
-          keyboardType: TextInputType.emailAddress,
+          keyboardType: keyboardType,
         ),
       ),
     ],

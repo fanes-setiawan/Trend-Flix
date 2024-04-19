@@ -61,18 +61,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ],
                 ),
               ),
-              formEmailWidget(
+              formWidget(
                 controller: _controller.TextNameControl,
                 title: 'Name',
                 hintText: 'your name',
+                keyboardType: TextInputType.name,
               ),
               const SizedBox(
                 height: 20.0,
               ),
-              formEmailWidget(
+              formWidget(
                 controller: _controller.TextEmailControl,
                 title: 'Email',
                 hintText: 'email@email.com',
+                keyboardType: TextInputType.emailAddress,
               ),
               const SizedBox(
                 height: 20.0,

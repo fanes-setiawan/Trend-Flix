@@ -107,11 +107,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: showSnackBarText('-OR-'),
                 ),
               ),
-              formEmailWidget(
-                controller: _controller.TextEmailControl,
-                title: 'Email',
-                hintText: 'email@email.com',
-              ),
+              formWidget(
+                  controller: _controller.TextEmailControl,
+                  title: 'Email',
+                  hintText: 'email@email.com',
+                  keyboardType: TextInputType.emailAddress),
               const SizedBox(
                 height: 20.0,
               ),

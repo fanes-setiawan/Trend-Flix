@@ -1,10 +1,11 @@
-// ignore_for_file: non_constant_identifier_names, avoid_print, use_build_context_synchronously
+// ignore_for_file: non_constant_identifier_names, use_build_context_synchronously, prefer_const_constructors
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 import '../../../navbar.dart';
+import '../../../widget_global/typesMovieWidget.dart';
 
 class LoginController {
   BuildContext context;
@@ -16,8 +17,24 @@ class LoginController {
   TextEditingController TextEmailControl = TextEditingController();
   TextEditingController TextPassControl = TextEditingController();
 
+  bool validateFields() {
+    if (TextEmailControl.text.isEmpty || TextPassControl.text.isEmpty) {
+      return false;
+    }
+    return true;
+  }
+
   loginEmailPass() async {
     try {
+      if (!validateFields()) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: showSnackBarText('email and password must be filled in'),
+          ),
+        );
+        return;
+      }
+
       await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: TextEmailControl.text,
         password: TextPassControl.text,
@@ -31,7 +48,11 @@ class LoginController {
       TextEmailControl.clear();
       TextPassControl.clear();
     } catch (err) {
-      print(err);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: showSnackBarText('Incorrect email or password'),
+        ),
+      );
     }
   }
 
@@ -66,7 +87,11 @@ class LoginController {
         );
       } catch (_) {}
     } catch (err) {
-      print(err);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: showSnackBarText('failed to log in with Google !!!'),
+        ),
+      );
     }
   }
 
@@ -80,7 +105,11 @@ class LoginController {
         ),
       );
     } catch (err) {
-      print(err);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: showSnackBarText('failed to perform anonymous login!!!'),
+        ),
+      );
     }
   }
 }

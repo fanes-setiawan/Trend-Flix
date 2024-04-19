@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:trendflix/navbar.dart';
 
+import '../../../widget_global/typesMovieWidget.dart';
+
 class RegisterController {
   BuildContext context;
   RegisterController({required this.context});
@@ -18,8 +20,26 @@ class RegisterController {
   TextEditingController TextEmailControl = TextEditingController();
   TextEditingController TextPassControl = TextEditingController();
 
+  bool validateFields() {
+    if (TextEmailControl.text.isEmpty ||
+        TextNameControl.text.isEmpty ||
+        TextPassControl.text.isEmpty) {
+      return false;
+    }
+    return true;
+  }
+
   regEmailPass() async {
     try {
+      if (!validateFields()) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content:
+                showSnackBarText('name, email, and password must be filled'),
+          ),
+        );
+        return;
+      }
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: TextEmailControl.text,
         password: TextPassControl.text,
@@ -46,8 +66,12 @@ class RegisterController {
       TextNameControl.clear();
       TextEmailControl.clear();
       TextPassControl.clear();
-    } on Exception catch (err) {
-      print(err);
+    } catch (err) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: showSnackBarText('failed to register !!!'),
+        ),
+      );
     }
   }
 
@@ -82,7 +106,11 @@ class RegisterController {
         );
       } catch (_) {}
     } catch (err) {
-      print(err);
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Gagal melakukan register'),
+        ),
+      );
     }
   }
 }
