@@ -65,6 +65,7 @@ Widget formPassWidget({
   TextEditingController? controller,
   void Function(String)? onSubmitted,
   void Function(String)? onChanged,
+  bool? isPasswordSecure,
 }) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
@@ -100,6 +101,12 @@ Widget formPassWidget({
           ),
         ),
       ),
+      if (controller!.text.isNotEmpty)
+        Container(
+          child: isPasswordSecure == false
+              ? validationFalse('password is not secure.')
+              : validationTrue('password is secure'),
+        )
     ],
   );
 }

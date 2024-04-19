@@ -24,6 +24,35 @@ class LoginController {
     return true;
   }
 
+  bool isPasswordSecure(String password) {
+    // Panjang minimal password
+    if (password.length < 8) {
+      return false;
+    }
+
+    // Memiliki setidaknya satu huruf besar
+    if (!password.contains(RegExp(r'[A-Z]'))) {
+      return false;
+    }
+
+    // Memiliki setidaknya satu huruf kecil
+    if (!password.contains(RegExp(r'[a-z]'))) {
+      return false;
+    }
+
+    // Memiliki setidaknya satu angka
+    if (!password.contains(RegExp(r'[0-9]'))) {
+      return false;
+    }
+
+    // Memiliki setidaknya satu simbol
+    if (!password.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
+      return false;
+    }
+
+    return true;
+  }
+
   loginEmailPass() async {
     try {
       if (!validateFields()) {

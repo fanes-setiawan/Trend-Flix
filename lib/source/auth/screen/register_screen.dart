@@ -80,27 +80,32 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 height: 20.0,
               ),
               formPassWidget(
-                controller: _controller.TextPassControl,
-                title: "Password",
-                hintText: 'Enter your password',
-                obscureText: _controller.isObscure,
-                isSuffixIcon: true,
-                suffixIcon: IconButton(
-                  icon: _controller.isObscure
-                      ? Icon(
-                          Icons.visibility,
-                          color: MyColor.cGrey2,
-                        )
-                      : Icon(
-                          Icons.visibility_off,
-                          color: MyColor.cGrey2,
-                        ),
-                  onPressed: () {
-                    _controller.isObscure = !_controller.isObscure;
+                  controller: _controller.TextPassControl,
+                  title: "Password",
+                  hintText: 'Enter your password',
+                  obscureText: _controller.isObscure,
+                  isSuffixIcon: true,
+                  suffixIcon: IconButton(
+                    icon: _controller.isObscure
+                        ? Icon(
+                            Icons.visibility,
+                            color: MyColor.cGrey2,
+                          )
+                        : Icon(
+                            Icons.visibility_off,
+                            color: MyColor.cGrey2,
+                          ),
+                    onPressed: () {
+                      _controller.isObscure = !_controller.isObscure;
+                      setState(() {});
+                    },
+                  ),
+                  onChanged: (value) {
+                    _controller.isPasswordSecure(value);
                     setState(() {});
                   },
-                ),
-              ),
+                  isPasswordSecure: _controller
+                      .isPasswordSecure(_controller.TextPassControl.text)),
               const SizedBox(
                 height: 50.0,
               ),
@@ -109,20 +114,29 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   Expanded(
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        foregroundColor: MyColor.cGrey1,
-                        backgroundColor: MyColor.cGrey1,
+                        foregroundColor: _controller.isPasswordSecure(
+                                _controller.TextPassControl.text)
+                            ? MyColor.cGrey2
+                            : MyColor.cGrey1,
+                        backgroundColor: _controller.isPasswordSecure(
+                                _controller.TextPassControl.text)
+                            ? MyColor.cGrey1
+                            : MyColor.cGrey2,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
                         side: BorderSide.none,
                       ),
-                      onPressed: () async {
-                        _controller.isLoading = true;
-                        setState(() {});
-                        await _controller.regEmailPass();
-                        _controller.isLoading = false;
-                        setState(() {});
-                      },
+                      onPressed: _controller.isPasswordSecure(
+                              _controller.TextPassControl.text)
+                          ? () async {
+                              _controller.isLoading = true;
+                              setState(() {});
+                              await _controller.regEmailPass();
+                              _controller.isLoading = false;
+                              setState(() {});
+                            }
+                          : () {}, // Tambahkan null pada onPressed jika password tidak aman
                       child: !_controller.isLoading
                           ? Tabbartext('Create account')
                           : Padding(

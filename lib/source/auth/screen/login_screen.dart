@@ -136,6 +136,12 @@ class _LoginScreenState extends State<LoginScreen> {
                     setState(() {});
                   },
                 ),
+                onChanged: (value) {
+                  _controller.isPasswordSecure(value);
+                  setState(() {});
+                },
+                isPasswordSecure: _controller
+                    .isPasswordSecure(_controller.TextPassControl.text),
               ),
               const SizedBox(
                 height: 50.0,
@@ -145,20 +151,29 @@ class _LoginScreenState extends State<LoginScreen> {
                   Expanded(
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        foregroundColor: MyColor.cGrey1,
-                        backgroundColor: MyColor.cGrey1,
+                        foregroundColor: _controller.isPasswordSecure(
+                                _controller.TextPassControl.text)
+                            ? MyColor.cGrey2
+                            : MyColor.cGrey1,
+                        backgroundColor: _controller.isPasswordSecure(
+                                _controller.TextPassControl.text)
+                            ? MyColor.cGrey1
+                            : MyColor.cGrey2,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
                         side: BorderSide.none,
                       ),
-                      onPressed: () {
-                        _controller.isLoading = true;
-                        setState(() {});
-                        _controller.loginEmailPass();
-                        _controller.isLoading = false;
-                        setState(() {});
-                      },
+                      onPressed: _controller.isPasswordSecure(
+                              _controller.TextPassControl.text)
+                          ? () {
+                              _controller.isLoading = true;
+                              setState(() {});
+                              _controller.loginEmailPass();
+                              _controller.isLoading = false;
+                              setState(() {});
+                            }
+                          : () {},
                       child: !_controller.isLoading
                           ? Tabbartext('Log in')
                           : Padding(

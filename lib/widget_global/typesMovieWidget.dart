@@ -219,6 +219,48 @@ Widget showSnackBarText(String title) {
           letterSpacing: 1.25));
 }
 
+Widget validationTrue(String title) {
+  return Row(
+    children: [
+      Icon(
+        Icons.lock_rounded,
+        size: 18.0,
+        color: MyColor.cGreen,
+      ),
+      Text(title,
+          style: TextStyle(
+              fontFamily: 'open sans',
+              decoration: TextDecoration.none,
+              color: MyColor.cGrey1,
+              fontSize: 11,
+              fontStyle: FontStyle.italic,
+              fontWeight: FontWeight.w400,
+              letterSpacing: 1.25)),
+    ],
+  );
+}
+
+Widget validationFalse(String title) {
+  return Row(
+    children: [
+      Icon(
+        Icons.lock_open_sharp,
+        size: 18.0,
+        color: MyColor.cRed,
+      ),
+      Text(title,
+          style: TextStyle(
+              fontFamily: 'open sans',
+              decoration: TextDecoration.none,
+              color: MyColor.cGrey1,
+              fontStyle: FontStyle.italic,
+              fontSize: 11,
+              fontWeight: FontWeight.w400,
+              letterSpacing: 1.25)),
+    ],
+  );
+}
+
 // ignore: non_constant_identifier_names
 Widget Tabbartext(String title) {
   return Text(title,
