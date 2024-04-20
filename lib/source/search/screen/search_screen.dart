@@ -28,6 +28,7 @@ class _SearchScreenState extends State<SearchScreen> {
     return Scaffold(
       backgroundColor: MyColor.cBlack,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: MyColor.cBlack,
         title: tittletext("SEARCH"),
         actions: const [],

@@ -1,11 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:trendflix/colors/myColors.dart';
-import 'package:trendflix/source/auth/screen/login_screen.dart';
 import 'package:trendflix/source/home/controllers/home_controller.dart';
 import 'package:trendflix/source/home/widget/home_widget.dart';
+import 'package:trendflix/source/profile/screen/profile_screens.dart';
 import 'package:trendflix/widget_global/typesMovieWidget.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -31,6 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Scaffold(
         backgroundColor: MyColor.cBlack,
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           backgroundColor: MyColor.cBlack,
           bottom: TabBar(
             labelColor: MyColor.cGrey2,
@@ -76,21 +78,40 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           title: tittletext("TREND FLIX"),
           actions: [
-            IconButton(
-              onPressed: () async {
-                await FirebaseAuth.instance.signOut();
-                Navigator.pushReplacement<void, void>(
-                  context,
-                  MaterialPageRoute<void>(
-                    builder: (BuildContext context) => const LoginScreen(),
+            StreamBuilder<DocumentSnapshot<Object?>>(
+              stream: FirebaseFirestore.instance
+                  .collection("users")
+                  .doc(FirebaseAuth.instance.currentUser!.uid)
+                  .snapshots(),
+              builder: (context, snapshot) {
+                if (snapshot.hasError) return const Text("Error");
+                if (!snapshot.hasData) return const Text("No Data");
+                Map<String, dynamic> item =
+                    (snapshot.data!.data() as Map<String, dynamic>);
+                item["id"] = snapshot.data!.id;
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const ProfileScreen(),
+                      ),
+                    );
+                  },
+                  child: Container(
+                    width: 50,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(100),
+                      color: Colors.white,
+                      image: DecorationImage(
+                          image: NetworkImage(item["profile"] ??
+                              'https://bookofachievers.com/img/default_dp.jpg'),
+                          fit: BoxFit.cover),
+                    ),
                   ),
                 );
               },
-              icon: Icon(
-                Icons.exit_to_app,
-                size: 24.0,
-                color: MyColor.cWhite,
-              ),
             ),
           ],
         ),

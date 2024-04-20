@@ -37,6 +37,17 @@ Widget boldtext(String title) {
           letterSpacing: 1.25));
 }
 
+Widget settingText(String title) {
+  return Text(title,
+      style: const TextStyle(
+          fontFamily: 'open sans',
+          decoration: TextDecoration.none,
+          color: Colors.black,
+          fontSize: 13,
+          fontWeight: FontWeight.bold,
+          letterSpacing: 1.25));
+}
+
 Widget normaltext(String title) {
   return Text(title,
       maxLines: 1,
