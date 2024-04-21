@@ -128,6 +128,22 @@ class RegisterController {
         var userCredential =
             await FirebaseAuth.instance.signInWithCredential(credential);
         debugPrint("userCredential: $userCredential");
+
+        final user = userCredential.user;
+        final String? username = user?.displayName;
+        final String? email = user?.email;
+        final String? id = user?.uid;
+
+        final FirebaseFirestore db = FirebaseFirestore.instance;
+        try {
+          await db.collection('users').doc(id).set({
+            'name': username,
+            'email': email,
+            'profile': user?.photoURL,
+          });
+        } on Exception catch (err) {
+          print(err);
+        }
         Navigator.pushReplacement<void, void>(
           context,
           MaterialPageRoute<void>(

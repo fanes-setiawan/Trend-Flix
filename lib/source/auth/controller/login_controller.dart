@@ -1,5 +1,6 @@
 // ignore_for_file: non_constant_identifier_names, use_build_context_synchronously, prefer_const_constructors
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -108,6 +109,21 @@ class LoginController {
         var userCredential =
             await FirebaseAuth.instance.signInWithCredential(credential);
         debugPrint("userCredential: $userCredential");
+        final user = userCredential.user;
+        final String? username = user?.displayName;
+        final String? email = user?.email;
+        final String? id = user?.uid;
+
+        final FirebaseFirestore db = FirebaseFirestore.instance;
+        try {
+          await db.collection('users').doc(id).set({
+            'name': username,
+            'email': email,
+            'profile': user?.photoURL,
+          });
+        } on Exception catch (err) {
+          print(err);
+        }
         Navigator.pushReplacement<void, void>(
           context,
           MaterialPageRoute<void>(
