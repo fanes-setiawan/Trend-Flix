@@ -25,11 +25,8 @@ class _TvDetailScreenState extends State<TvDetailScreen> {
 
   @override
   void initState() {
-    print('--------1--------');
     _controller = TvDetailController(id: widget.id.toString());
-    print('--------2--------');
     _controller.id = widget.id.toString();
-    print('--------3--------');
     _controller.getTvDetail();
     super.initState();
   }

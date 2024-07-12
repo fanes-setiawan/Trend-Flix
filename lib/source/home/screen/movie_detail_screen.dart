@@ -29,8 +29,9 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
 
   @override
   void initState() {
-    _controller = MovieDetailController();
+    _controller = MovieDetailController(id: widget.id.toString());
     _controller.id = widget.id.toString();
+    _controller.getDetailMovie();
     super.initState();
   }
 

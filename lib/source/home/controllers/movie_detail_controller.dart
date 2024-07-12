@@ -1,8 +1,8 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first, non_constant_identifier_names, prefer_interpolation_to_compose_strings, avoid_print
 import 'package:dio/dio.dart';
-
 import '../../../service/api/api.dart';
 import '../../../service/model/movieModel.dart';
+// ignore_for_file: public_member_api_docs, sort_constructors_first, non_constant_identifier_names, prefer_interpolation_to_compose_strings, avoid_print
+
 
 class MovieDetailController {
   String? id;
@@ -19,18 +19,19 @@ class MovieDetailController {
   var MoviesGeneres;
 
   Future<void> getDetailMovie() async {
-    var moviedetailurl = "${MyApi.ApiUrl}/movie/$id?api_key=${MyApi.ApiKey}";
+    var moviedetailurl = "${MyApi.ApiUrl}movie/$id?api_key=${MyApi.ApiKey}";
     var userreviewurl =
-        "${MyApi.ApiUrl}/movie/$id/reviews?api_key=${MyApi.ApiKey}";
+        "${MyApi.ApiUrl}movie/$id/reviews?api_key=${MyApi.ApiKey}";
     var similarseries =
-        "${MyApi.ApiUrl}/movie/$id/similar?api_key=${MyApi.ApiKey}";
+        "${MyApi.ApiUrl}movie/$id/similar?api_key=${MyApi.ApiKey}";
     var recommendseries =
-        "${MyApi.ApiUrl}/movie/$id/recommendations?api_key=${MyApi.ApiKey}";
+        "${MyApi.ApiUrl}movie/$id/recommendations?api_key=${MyApi.ApiKey}";
     var movietrailersurl =
-        "${MyApi.ApiUrl}/movie/$id/videos?api_key=${MyApi.ApiKey}";
+        "${MyApi.ApiUrl}movie/$id/videos?api_key=${MyApi.ApiKey}";
 
     var response1 = await Dio().get(moviedetailurl);
     print("RESPONSE1");
+    print(response1.data);
     if (response1.statusCode == 200) {
       var data1 = response1.data;
       MoviesGeneres = data1;
