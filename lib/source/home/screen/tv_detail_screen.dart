@@ -1,19 +1,13 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first, use_super_parameters, prefer_typing_uninitialized_variables, must_be_immutable, prefer_interpolation_to_compose_strings, prefer_const_constructors, avoid_unnecessary_containers, use_build_context_synchronously, avoid_print
-// ignore_for_file: unused_field
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:trendflix/colors/myColors.dart';
-import 'package:trendflix/service/model/sqflite_model.dart';
-
-import 'package:trendflix/source/home/controllers/tv_detail_controller.dart';
-
-import 'package:trendflix/widget_global/typesMovieWidget.dart';
-
-import '../../../service/db_sqflite/database_helper.dart';
 import '../../../widget_global/TrailerUI.dart';
+import 'package:trendflix/colors/myColors.dart';
 import '../../../widget_global/detailSliderList.dart';
+import '../../../service/db_sqflite/database_helper.dart';
+import 'package:trendflix/service/model/sqflite_model.dart';
+import 'package:trendflix/widget_global/typesMovieWidget.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:trendflix/source/home/controllers/tv_detail_controller.dart';
 
 class TvDetailScreen extends StatefulWidget {
   var id;
@@ -31,8 +25,12 @@ class _TvDetailScreenState extends State<TvDetailScreen> {
 
   @override
   void initState() {
-    _controller = TvDetailController();
+    print('--------1--------');
+    _controller = TvDetailController(id: widget.id.toString());
+    print('--------2--------');
     _controller.id = widget.id.toString();
+    print('--------3--------');
+    _controller.getTvDetail();
     super.initState();
   }
 
@@ -44,36 +42,47 @@ class _TvDetailScreenState extends State<TvDetailScreen> {
           future: _controller.getTvDetail(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
+              if (_controller.TvSeriesDetails.isEmpty) {
+                return Center(
+                  child: Text(
+                    'No details found',
+                    style: TextStyle(color: MyColor.cWhite),
+                  ),
+                );
+              }
               return CustomScrollView(
                 physics: BouncingScrollPhysics(),
                 slivers: [
                   SliverAppBar(
-                      automaticallyImplyLeading: false,
-                      leading: IconButton(
-                          onPressed: () {
-                            SystemChrome.setEnabledSystemUIMode(
-                                SystemUiMode.manual,
-                                overlays: [SystemUiOverlay.bottom]);
-                            SystemChrome.setPreferredOrientations([
-                              DeviceOrientation.portraitUp,
-                              DeviceOrientation.portraitDown,
-                            ]);
-                            Navigator.pop(context);
-                          },
-                          icon: Icon(FontAwesomeIcons.circleArrowLeft),
-                          iconSize: 28,
-                          color: MyColor.cWhite),
-                      backgroundColor: Color.fromRGBO(18, 18, 18, 0.5),
-                      expandedHeight: MediaQuery.of(context).size.height * 0.35,
-                      pinned: true,
-                      flexibleSpace: FlexibleSpaceBar(
-                        collapseMode: CollapseMode.parallax,
-                        background: FittedBox(
-                          child: trailerwatch(
-                            trailerytid: _controller.seriestrailerslist[0].key,
-                          ),
+                    automaticallyImplyLeading: false,
+                    leading: IconButton(
+                      onPressed: () {
+                        SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+                            overlays: [SystemUiOverlay.bottom]);
+                        SystemChrome.setPreferredOrientations([
+                          DeviceOrientation.portraitUp,
+                          DeviceOrientation.portraitDown,
+                        ]);
+                        Navigator.pop(context);
+                      },
+                      icon: Icon(FontAwesomeIcons.circleArrowLeft),
+                      iconSize: 28,
+                      color: MyColor.cWhite,
+                    ),
+                    backgroundColor: Color.fromRGBO(18, 18, 18, 0.5),
+                    expandedHeight: MediaQuery.of(context).size.height * 0.35,
+                    pinned: true,
+                    flexibleSpace: FlexibleSpaceBar(
+                      collapseMode: CollapseMode.parallax,
+                      background: FittedBox(
+                        child: trailerwatch(
+                          trailerytid: _controller.seriestrailerslist.isNotEmpty
+                              ? _controller.seriestrailerslist[0].key ?? ''
+                              : '',
                         ),
-                      )),
+                      ),
+                    ),
+                  ),
                   SliverList(
                     delegate: SliverChildListDelegate(
                       [
@@ -81,10 +90,11 @@ class _TvDetailScreenState extends State<TvDetailScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Padding(
-                                padding: EdgeInsets.only(left: 10),
-                                child: tittletext(_controller
-                                    .TvSeriesDetails[0].title
-                                    .toString())),
+                              padding: EdgeInsets.only(left: 10),
+                              child: tittletext(
+                                _controller.TvSeriesDetails[0].title.toString(),
+                              ),
+                            ),
                             Row(
                               children: [
                                 Container(
@@ -94,21 +104,21 @@ class _TvDetailScreenState extends State<TvDetailScreen> {
                                   child: ListView.builder(
                                     physics: BouncingScrollPhysics(),
                                     scrollDirection: Axis.horizontal,
-                                    itemCount:
-                                        _controller.data['genres'].length,
+                                    itemCount: _controller.data?['genres']?.length ?? 0,
                                     itemBuilder: (context, index) {
                                       return Container(
                                         margin: EdgeInsets.only(right: 10),
                                         padding: EdgeInsets.all(10),
                                         decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(10)),
+                                          borderRadius: BorderRadius.circular(10),
+                                        ),
                                         child: genrestext(
-                                            "#${_controller.TvSeriesDetails[index + 1].genre}"),
+                                          "#${_controller.data?['genres'][index]['name'] ?? ''}",
+                                        ),
                                       );
                                     },
                                   ),
-                                )
+                                ),
                               ],
                             ),
                           ],
@@ -145,7 +155,8 @@ class _TvDetailScreenState extends State<TvDetailScreen> {
                                           var snackBar = SnackBar(
                                             backgroundColor: MyColor.cGrey2,
                                             content: showSnackBarText(
-                                                'Successfully added to favorites.'),
+                                              'Successfully added to favorites.',
+                                            ),
                                           );
                                           ScaffoldMessenger.of(context)
                                               .showSnackBar(snackBar);
@@ -155,7 +166,8 @@ class _TvDetailScreenState extends State<TvDetailScreen> {
                                           var snackBar = SnackBar(
                                             backgroundColor: MyColor.cGrey2,
                                             content: showSnackBarText(
-                                                'Failed to insert movie.'),
+                                              'Failed to insert movie.',
+                                            ),
                                           );
                                           ScaffoldMessenger.of(context)
                                               .showSnackBar(snackBar);
@@ -183,87 +195,89 @@ class _TvDetailScreenState extends State<TvDetailScreen> {
                             ],
                           ),
                         ),
-
                         Container(
-                            padding: EdgeInsets.only(left: 10, top: 20),
-                            child: readMore(_controller
-                                .TvSeriesDetails[0].overview
-                                .toString())),
-
+                          padding: EdgeInsets.only(left: 10, top: 20),
+                          child: readMore(
+                            _controller.TvSeriesDetails[0].overview.toString(),
+                          ),
+                        ),
                         Container(
+                          padding: EdgeInsets.only(left: 10, top: 20),
+                          child: boldtext(
+                            "Status : ${_controller.TvSeriesDetails[0].status.toString()}",
+                          ),
+                        ),
+                        if ((_controller.data?['created_by'] as List?) != null &&
+                            _controller.data?['created_by']?.isNotEmpty == true)
+                          Container(
                             padding: EdgeInsets.only(left: 10, top: 20),
-                            child: boldtext("Status : " +
-                                _controller.TvSeriesDetails[0].status
-                                    .toString())),
-                        // created by
-                        if (_controller.data['created_by'].length != 0)
+                            child: tittletext("Created By : "),
+                          ),
+                        if ((_controller.data?['created_by'] as List?) != null &&
+                            _controller.data?['created_by']?.isNotEmpty == true)
                           Container(
-                              padding: EdgeInsets.only(left: 10, top: 20),
-                              child: tittletext("Created By : ")),
-
-                        if (_controller.data['created_by'].length != 0)
-                          Container(
-                              padding: EdgeInsets.only(left: 10, top: 10),
-                              height: 150,
-                              width: MediaQuery.of(context).size.width,
-                              child: ListView.builder(
-                                  physics: BouncingScrollPhysics(),
-                                  scrollDirection: Axis.horizontal,
-                                  itemCount:
-                                      _controller.data['created_by'].length,
-                                  itemBuilder: (context, index) {
-                                    //generes box
-                                    return Container(
-                                        margin: EdgeInsets.only(right: 10),
-                                        padding: EdgeInsets.all(8),
-                                        decoration: BoxDecoration(
-                                            color:
-                                                Color.fromRGBO(25, 25, 25, 1),
-                                            borderRadius:
-                                                BorderRadius.circular(10)),
-                                        child: Row(children: [
-                                          Column(children: [
-                                            _controller.data['created_by']
-                                                            [index]
-                                                        ['profile_path'] ==
-                                                    ''
-                                                ? CircleAvatar(
-                                                    radius: 45,
-                                                    backgroundImage:
-                                                        NetworkImage(
-                                                      'https://image.tmdb.org/t/p/w500' +
-                                                          _controller.data[
-                                                                  'created_by']
-                                                                  [index][
-                                                                  'profile_path']
-                                                              .toString(),
-                                                    ),
-                                                  )
-                                                : CircleAvatar(
-                                                    radius: 45,
-                                                    backgroundImage:
-                                                        NetworkImage(
-                                                      'https://www.nicepng.com/png/detail/52-521023_download-free-icon-female-vectors-blank-facebook-profile.png',
-                                                    ),
+                            padding: EdgeInsets.only(left: 10, top: 10),
+                            height: 150,
+                            width: MediaQuery.of(context).size.width,
+                            child: ListView.builder(
+                              physics: BouncingScrollPhysics(),
+                              scrollDirection: Axis.horizontal,
+                              itemCount: _controller.data?['created_by']?.length ?? 0,
+                              itemBuilder: (context, index) {
+                                return Container(
+                                  margin: EdgeInsets.only(right: 10),
+                                  padding: EdgeInsets.all(8),
+                                  decoration: BoxDecoration(
+                                    color: Color.fromRGBO(25, 25, 25, 1),
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: Row(
+                                    children: [
+                                      Column(
+                                        children: [
+                                          (_controller.data?['created_by']?[index]
+                                                      ['profile_path'] !=
+                                                  null)
+                                              ? CircleAvatar(
+                                                  radius: 45,
+                                                  backgroundImage: NetworkImage(
+                                                    'https://image.tmdb.org/t/p/w500' +
+                                                        (_controller.data?['created_by']?[index]
+                                                                ['profile_path'] ??
+                                                            ''),
                                                   ),
-                                            SizedBox(height: 10),
-                                            genrestext(_controller
-                                                .data['created_by'][index]
-                                                    ['name']
-                                                .toString())
-                                          ])
-                                        ]));
-                                  })),
+                                                )
+                                              : const CircleAvatar(
+                                                  radius: 45,
+                                                  backgroundImage: NetworkImage(
+                                                    'https://www.nicepng.com/png/detail/52-521023_download-free-icon-female-vectors-blank-facebook-profile.png',
+                                                  ),
+                                                ),
+                                        const   SizedBox(height: 10),
+                                          genrestext(
+                                            _controller.data?['created_by']?[index]['name'] ??
+                                                '',
+                                          )
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
                         Container(
-                            padding: EdgeInsets.only(left: 10, top: 20),
-                            child: normaltext("Total Seasons : " +
-                                _controller.TvSeriesDetails.length.toString())),
-                        //airdate
+                          padding: EdgeInsets.only(left: 10, top: 20),
+                          child: normaltext(
+                            "Total Seasons : ${_controller.TvSeriesDetails.length.toString()}",
+                          ),
+                        ),
                         Container(
-                            padding: EdgeInsets.only(left: 10, top: 20),
-                            child: normaltext("Release date : " +
-                                _controller.TvSeriesDetails[0].date
-                                    .toString())),
+                          padding: EdgeInsets.only(left: 10, top: 20),
+                          child: normaltext(
+                            "Release date : ${_controller.TvSeriesDetails[0].date.toString()}",
+                          ),
+                        ),
                         detailSliderList(
                           _controller.similarserieslist,
                           'Similar Series',
@@ -278,7 +292,7 @@ class _TvDetailScreenState extends State<TvDetailScreen> {
                         ),
                       ],
                     ),
-                  )
+                  ),
                 ],
               );
             } else {

@@ -1,12 +1,12 @@
 import 'dart:ui';
-
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:trendflix/service/model/movieModel.dart';
-import 'package:trendflix/source/home/screen/movie_detail_screen.dart';
-import 'package:trendflix/source/home/screen/tv_detail_screen.dart';
-
+import 'package:carousel_slider/carousel_slider.dart';
 import '../../../widget_global/typesMovieWidget.dart';
+import 'package:trendflix/service/model/movieModel.dart';
+import 'package:trendflix/source/home/screen/tv_detail_screen.dart';
+import 'package:trendflix/source/home/screen/movie_detail_screen.dart';
+
+
 
 class HomeWidget {
   Widget sliderlist(
@@ -141,10 +141,12 @@ class HomeWidget {
                   return GestureDetector(
                     onTap: () {
                       if (type == 'movie') {
+                        print(data.id);
                         Navigator.push(
                           context,
                           MaterialPageRoute(
                             builder: (context) => MovieDetailScreen(
+                              
                               id: data.id,
                             ),
                           ),

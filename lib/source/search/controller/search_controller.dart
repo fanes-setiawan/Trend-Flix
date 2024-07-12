@@ -1,10 +1,10 @@
-// ignore_for_file: avoid_print, non_constant_identifier_names
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:trendflix/service/api/api.dart';
-
 import '../../../service/model/movieModel.dart';
+// ignore_for_file: avoid_print, non_constant_identifier_names
+
+
 
 class SearchControllers {
   final TextEditingController searchtext = TextEditingController();
@@ -15,7 +15,11 @@ class SearchControllers {
   Future<void> getSearchData(velue) async {
     print("data di pnggil");
     var Api = "${MyApi.ApiSearch}&query=$velue";
+    print(Api);
+    print("$velue");
     var response = await Dio().get(Api);
+    print(Api);
+    print(response.data);
     print("Data search");
     print(response.statusCode);
     print(response.data);

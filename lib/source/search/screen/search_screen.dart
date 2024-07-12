@@ -1,12 +1,12 @@
+import 'package:flutter/material.dart';
+import '../../../service/data/checker.dart';
+import '../controller/search_controller.dart';
+import 'package:trendflix/colors/myColors.dart';
+import '../../../widget_global/typesMovieWidget.dart';
+import 'package:trendflix/source/search/widget/search_widget.dart';
 // ignore_for_file: unused_field, prefer_is_empty, avoid_unnecessary_containers, prefer_const_constructors
 
-import 'package:flutter/material.dart';
-import 'package:trendflix/colors/myColors.dart';
-import 'package:trendflix/source/search/widget/search_widget.dart';
 
-import '../../../service/data/checker.dart';
-import '../../../widget_global/typesMovieWidget.dart';
-import '../controller/search_controller.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -86,7 +86,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                     padding:
                                         const EdgeInsets.only(bottom: 10.0),
                                     child: Container(
-                                      height: 130,
+                                      height: 140,
                                       width: MediaQuery.of(context).size.width,
                                       decoration: BoxDecoration(
                                           borderRadius: BorderRadius.all(
@@ -119,7 +119,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                                     'Media : ${_controller.SearchResults[index].mediatype}',
                                                   ),
                                                   datetext(
-                                                      '${_controller.SearchResults[index].date}'),
+                                                      '${_controller.SearchResults[index].date??''} '),
                                                   Text(
                                                     textAlign: TextAlign.left,
                                                     ' ${_controller.SearchResults[index].overview}',

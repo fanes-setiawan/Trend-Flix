@@ -20,5 +20,5 @@ class MyApi {
   static String ApiUpcomming = "${ApiUrl}movie/upcoming?api_key=$ApiKey";
 
   //api search
-  static String ApiSearch = "${ApiUrl}/search/multi?api_key=$ApiKey";
+  static String ApiSearch = "${ApiUrl}search/multi?api_key=$ApiKey";
 }

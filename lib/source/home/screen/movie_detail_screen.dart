@@ -1,17 +1,17 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first, use_super_parameters, prefer_typing_uninitialized_variables, must_be_immutable, avoid_unnecessary_containers, prefer_const_constructors, prefer_interpolation_to_compose_strings, avoid_print, use_build_context_synchronously
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:trendflix/colors/myColors.dart';
-
-import 'package:trendflix/source/home/controllers/movie_detail_controller.dart';
-
-import '../../../service/db_sqflite/database_helper.dart';
-import '../../../service/model/sqflite_model.dart';
-import '../../../widget_global/TrailerUI.dart';
-import '../../../widget_global/detailSliderList.dart';
 import '../../../widget_global/reviewui.dart';
+import '../../../widget_global/TrailerUI.dart';
+import 'package:trendflix/colors/myColors.dart';
+import '../../../service/model/sqflite_model.dart';
+import '../../../widget_global/detailSliderList.dart';
 import '../../../widget_global/typesMovieWidget.dart';
+import '../../../service/db_sqflite/database_helper.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:trendflix/source/home/controllers/movie_detail_controller.dart';
+// ignore_for_file: public_member_api_docs, sort_constructors_first, use_super_parameters, prefer_typing_uninitialized_variables, must_be_immutable, avoid_unnecessary_containers, prefer_const_constructors, prefer_interpolation_to_compose_strings, avoid_print, use_build_context_synchronously
+
+
 
 class MovieDetailScreen extends StatefulWidget {
   var id;
@@ -106,7 +106,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                                         borderRadius:
                                             BorderRadius.circular(10)),
                                     child: genrestext(
-                                        "#${_controller.MovieDetails[index].genre}"),
+                                        _controller.MovieDetails[index].genre ??''),
                                   );
                                 },
                               ),
